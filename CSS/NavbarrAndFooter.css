@@ -13,22 +13,34 @@ nav
 
 #NavLogoDiv
 {
-
+    padding: 30px;
+    text-align: center;
+    height: 20px;
+    width: 50px;
 }
 
 #NavProductDiv
 {
-
+    padding: 30px;
+    text-align: center;
+    height: 20px;
+    width: 50px;
 }
 
 #NavInfoDiv
 {
-
+    padding: 30px;
+    text-align: center;
+    height: 20px;
+    width: 50px;
 }
 
 #NavReservationDiv
 {
-
+    padding: 30px;
+    text-align: center;
+    height: 20px;
+    width: 50px;
 }
 
 #NavLogoContent
