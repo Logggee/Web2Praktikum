@@ -24,28 +24,37 @@
     align-items: center;
 }
 
-.inputDiv {
+.reservierungsListe
+{
+    margin-bottom: 10px;
+}
+
+.buttonsDiv
+{
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    text-align: right;
+    position: absolute;
+    right: 0;
 }
 
-.labelInput {
-    margin-right: 10px;
-}
-
-.input {
-    margin-left: 0;
-}
-
-.acceptButton {
+.acceptButton 
+{
+    height: 50px;
+    width: 150px;
     margin-left: 10px;
     margin-right: 10px;
+    position: relative;
+    align-items: end;
+    background-color: forestgreen;
+    border-radius: 5%;
+    border: none;
 }
 
-.cancelButton {
+.cancelButton 
+{
+    width: 150px;
     margin-left: 10px;
     margin-right: 20px;
+    background-color: crimson;
+    border-radius: 5%;
+    border: none;
 }
