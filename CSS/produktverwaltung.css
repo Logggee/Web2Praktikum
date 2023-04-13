@@ -1,0 +1,46 @@
+#accordionFlushExample
+{
+    border: 3px solid; 
+    border-color: gray; 
+    margin: 5px;
+    margin-bottom: 0;
+}
+
+.akordionInhalt {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.bilderAkordion {
+    height: 100px;
+}
+
+.textAkordion {
+    display: flex;
+    margin-left: 10px;
+    margin-right: 20px;
+    align-items: center;
+}
+
+.inputDiv {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    text-align: right;
+}
+
+.labelInput {
+    margin-right: 10px;
+}
+
+.input {
+    margin-left: 0;
+}
+
+.editButton {
+    margin-left: 10px;
+    margin-right: 10px;
+}
