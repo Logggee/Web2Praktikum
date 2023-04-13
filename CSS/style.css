@@ -51,6 +51,17 @@ a:hover {
     height: 100%;
 }
 
+.logout{
+    margin-left: auto;
+    height: 40px;
+}
+
+.logout img {
+    height: 100%;
+    width: 48; 
+    height: 48;
+}
+
 footer {
     background: var(--primary);
     color: var(--text1);
