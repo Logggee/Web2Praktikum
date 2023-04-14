@@ -4,6 +4,7 @@ main {
     display: flex;
     flex-direction: column;
     padding-bottom: 50px;
+    min-height: 86vh;
 }
 
 .textStart {
