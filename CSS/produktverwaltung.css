@@ -1,3 +1,6 @@
+main {
+    color: var(--text1);
+}
 #accordionFlushExample
 {
     border: 3px solid; 
@@ -46,6 +49,8 @@
     width: 150px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
     border-radius: 5px;
     border: none;
     background-color:goldenrod;
@@ -61,10 +66,9 @@
     background-color:crimson;
 }
 
-
-
 .addImage
 {
     margin-left: auto;
     height: 40px;
 }
+
