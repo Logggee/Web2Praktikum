@@ -40,7 +40,31 @@
     margin-left: 0;
 }
 
-.editButton {
+.editButton 
+{
+    height: 50px;
+    width: 150px;
     margin-left: 10px;
     margin-right: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color:goldenrod;
+}
+
+.deleteButton
+{
+    height: 50px;
+    width: 150px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color:crimson;
+}
+
+
+
+.addImage
+{
+    margin-left: auto;
+    height: 40px;
 }
