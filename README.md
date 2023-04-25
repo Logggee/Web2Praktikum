@@ -42,3 +42,25 @@ Webseite für Webanwendungen 2 Praktikum Sommersemester 2023
 - git push origin //Alle neuen Daten ins Repo laden
 - git add . //Alle Dateien Stagen
 - git commit oder git commit -m "commit message" //commit auf den Branch machen
+
+## Erstellen der Backend Express Anwendung
+- aktuelle LTS von Node.js runterladen
+- PATH variable eventuell setzten
+- Im Terminal (geht auch im Terminal von Visual Studio Code) in den Ordner wechseln in dem Ordnerstrucktur enstehen soll wechseln
+- nun könnte man mit npm install express alle Packeges und Dependencies installieren lassen die für express benötigt werden intallieren lassen
+```shell
+$ npm install express
+$ npm init 
+$ npm run start
+```
+- mit npm init kann man sich die package.json Datei erzeugen lassen.
+- mit npm run start oder npm start kann die Anwendung gestertet werden.
+```shell
+$ npx express-generator --no-view
+```
+- mit diesem npx befehl kann man sich eine standart Express Ordnerstrucktur erzeugen lassen.
+- ebenfalls ist nun nodemon installiert, dies bewirkt das bei Änderungen der Server nicht jedes mal neu gestartet werden muss
+```shell
+$ npm run dev
+```
+- mit diesem Befehl wird der Server im developer Modus gestartet welcher dann bei änderungen direkt von nodemon immer neu gestartet werden muss um die änderungen sehen zu können muss der Browser aber refreshed werden
