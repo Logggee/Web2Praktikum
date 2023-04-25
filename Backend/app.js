@@ -27,10 +27,10 @@ try
     app.use(cookieParser());    //Middleware zum parsen von Cookies
     app.use(express.static(path.join(__dirname, 'public')));    //Middleware für statische Dateien wie Html Und Css um sie dem Client zur verfügung zu stellen
 
-    //Router und binden auf die Endpunkte
-    // Create a router instance
+    //Router Instanz erzeugen und binden auf die Endpunkte
     console.log('Binding enpoints, top level Path at ' + TOPLEVELPATH);
 
+    //Alle Routen die auf die Routings verweißen
     /*
     var router = require('./routes/start.js');
     app.use(TOPLEVELPATH, router);
@@ -50,25 +50,22 @@ try
     app.use(TOPLEVELPATH, router);
     */
 
-    // send default error message if no matching endpoint found
+    // senden einer default Error Message wenn kein Passender Endpunkt gefunden wurde
     app.use(function (request, response) 
     {
         console.log('Error occured, 404, resource not found');
         response.status(404).json({'fehler': true, 'nachricht': 'Resource nicht gefunden'});
     });
 
-    // starting the Web Server
+    //Starten des Servers auf dem gegebenen Port
     console.log('\nBinding Port and starting Webserver...');
 
     var webServer = app.listen(HTTP_PORT, () => {
         console.log('Listening at localhost, port ' + HTTP_PORT);
         console.log('\nUsage: http://localhost:' + HTTP_PORT + TOPLEVELPATH + "/SERVICENAME/SERVICEMETHOD/....");
-        console.log('\nVersion 4.0, 21.02.2023\nSommersemester 2023, HS Albstadt-Sigmaringen, INF');
-        console.log('\n\n-----------------------------------------');
-        console.log('exit / stop Server by pressing 2 x CTRL-C');
-        console.log('-----------------------------------------\n\n');
     });
 
+    //exportieren der App Instanz diese kann dann in einer anderen Datei mir require importiert werden und weiterverarbeitet werden
     module.exports = app;
 }
 
