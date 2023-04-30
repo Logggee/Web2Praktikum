@@ -25,30 +25,27 @@ try
     app.use(express.json());    //Middleware die den Requestbody in JSON parsen kann
     app.use(express.urlencoded({ extended: false }));   //Diese Middleware kann URL-codierten Anfragedaten im Request-Body parsen und in ein JavaScript-Objekt umwandeln. Der Parameter extended gibt an, ob die URL-Codierung der Anfrage verarbeitet werden soll.
     app.use(cookieParser());    //Middleware zum parsen von Cookies
-    app.use(express.static(path.join(__dirname, 'public')));    //Middleware für statische Dateien wie Html Und Css um sie dem Client zur verfügung zu stellen
+    app.use(express.static('public'));    //Middleware für statische Dateien wie Html Und Css um sie dem Client zur verfügung zu stellen
 
     //Router Instanz erzeugen und binden auf die Endpunkte
     console.log('Binding enpoints, top level Path at ' + TOPLEVELPATH);
 
     //Alle Routen die auf die Routings verweißen
-    /*
-    var router = require('./routes/start.js');
+    
+    var router = require('./routes/warenkorbRouting.js');
     app.use(TOPLEVELPATH, router);
 
-    var router = require('./routes/ueberuns.js');
-    app.use(TOPLEVELPATH, router);
-    */
 
-    var router = require('./routes/produkte.js');
+    var router = require('./routes/produkteRouting.js');
     app.use(TOPLEVELPATH, router);
 
-    /*
-    var router = require('./routes/reservierungen.js');
+    
+    var router = require('./routes/reservierungenRouting.js');
     app.use(TOPLEVELPATH, router);
 
-    var router = require('./routes/produktverwaltung.js');
+    var router = require('./routes/produktverwaltungRouting.js');
     app.use(TOPLEVELPATH, router);
-    */
+    
 
     // senden einer default Error Message wenn kein Passender Endpunkt gefunden wurde
     app.use(function (request, response) 

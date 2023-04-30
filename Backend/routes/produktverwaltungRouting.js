@@ -11,4 +11,12 @@ router.delete("/reservierungen/id"), (req, res) =>{
   res.send("Hello World");
 }
 
+router.post("/reservierungen/id"), (req, res) =>{
+  res.send("Hello World");
+}
+
+router.patch("/reservierungen/id"), (req, res) =>{
+  res.send("Hello World");
+}
+
 module.exports = router;
