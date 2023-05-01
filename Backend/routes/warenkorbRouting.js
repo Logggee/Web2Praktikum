@@ -10,11 +10,11 @@ router.post("/warenkorb", (req, res) =>
   {
     try
     {
-      console.log(Object.keys(req.body).length);
-      const warenkorb = Object.values(req.body);
-      console.log("Anzahl der Produkte:", warenkorb.length);
-      for (let i = 0; i < warenkorb.length; i++) {
-        const produkt = warenkorb[i].produkt;
+      const warenkorb = req.body.Produkte;  //JSON Array aus dem Body herausholen
+      console.log("Anzahl der Produkte:", warenkorb.length);  //Anzahl der Produkte die in dem Warenkorb waren
+      for (let i = 0; i < warenkorb.length; i++)  //For schleife die alle Produkte aus dem JSON Holt das JSON Array könnte aber hier vermutlich gleich an DAO weitergeleitet werden 
+      {
+        const produkt = warenkorb[i].name;
         const menge = warenkorb[i].menge;
         console.log(produkt, menge);
       }

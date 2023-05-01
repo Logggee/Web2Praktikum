@@ -13,16 +13,20 @@ document.addEventListener("DOMContentLoaded", () =>
                 {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify([
+                body: JSON.stringify({'Produkte' : [
                     {
-                      produkt: 'Apfel',
+                      name: 'Äpfel',
                       menge: 10
                     },
                     {
-                      produkt: 'Eier',
+                      name: 'Eier',
                       menge: 20
+                    },
+                    {
+                        name: 'Milch',
+                        menge: 1
                     }
-                  ])
+                  ]})
             });
 
             const status = await response.status;
