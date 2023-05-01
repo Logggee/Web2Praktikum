@@ -64,3 +64,4 @@ $ npx express-generator --no-view
 $ npm run dev
 ```
 - mit diesem Befehl wird der Server im developer Modus gestartet welcher dann bei änderungen direkt von nodemon immer neu gestartet werden muss um die änderungen sehen zu können muss der Browser aber refreshed werden
+- Im Browser kann man dann unter der URL http://localhost:8000/HTML/start.html die Seite Aufrufen
