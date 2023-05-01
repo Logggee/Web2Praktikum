@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/start.css">
     <link rel="stylesheet" href="../CSS/reservierung.css">
+    <script src="../Java Skript/reservierungen.js"></script>
 </head>
 <body>
     <nav>
@@ -30,13 +31,13 @@
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEi" aria-expanded="false" aria-controls="flush-collapseOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="false" aria-controls="flush-collapseOne">
                   Reservierungs ID: 1<br>
                   Anzahl Positionen: 3<br>
                   Kunde: Max.Mustermann@hs-albsig.de
                 </button>
               </h2>
-              <div id="flush-collapseEi" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div id="flush-collapse1" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                 <div class="akordionInhalt">
                     <ul class="reservierungsListe">
                       <li>10 Eier</li>
@@ -44,8 +45,8 @@
                       <li>100g Käse</li>
                     </ul>
                     <div class="buttonsDiv">
-                      <button type="submit" class="acceptButton">Bestätigen</button>
-                      <button type="submit" class="cancelButton">Ablehnen</button>
+                      <button type="submit" class="acceptButton" id="accept">Bestätigen</button>
+                      <button type="submit" class="cancelButton" id="cancel">Ablehnen</button>
                     </div>
                 </div>
               </div>
@@ -55,24 +56,47 @@
           <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseApfel" aria-expanded="false" aria-controls="flush-collapseOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapseOne">
                   Reservierungs ID: 2<br>
                   Anzahl Positionen: 4<br>
                   Kunde: Lisa.Musterfrau@hs-albsig.de
                 </button>
               </h2>
-              <div id="flush-collapseApfel" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+              <div id="flush-collapse2" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                 <div class="akordionInhalt">
                     <ul class="reservierungsListe">
-                      <li>10 Eier</li>
-                      <li>5 Äpfel</li>
-                      <li>100g Käse</li>
-                      <li>2l Milch</li>
+                      <li>4 Eier</li>
+                      <li>53 Äpfel</li>
+                      <li>400g Käse</li>
+                      <li>2L Milch</li>
                     </ul>
                     <div class="buttonsDiv">
-                      <button type="submit" class="acceptButton">Bestätigen</button>
-                      <button type="submit" class="cancelButton">Ablehnen</button>
-                  </div>
+                      <button type="submit" class="acceptButton" id="accept">Bestätigen</button>
+                      <button type="submit" class="cancelButton" id="cancel">Ablehnen</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapseOne">
+                  Reservierungs ID: 3<br>
+                  Anzahl Positionen: 1<br>
+                  Kunde: Linda.Musterfrau@hs-albsig.de
+                </button>
+              </h2>
+              <div id="flush-collapse3" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                <div class="akordionInhalt">
+                    <ul class="reservierungsListe">
+                      <li>2 Eier</li>
+                    </ul>
+                    <div class="buttonsDiv">
+                      <button type="submit" class="acceptButton" id="accept">Bestätigen</button>
+                      <button type="submit" class="cancelButton" id="cancel">Ablehnen</button>
+                    </div>
                 </div>
               </div>
             </div>

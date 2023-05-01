@@ -2,13 +2,16 @@ const express = require('express');
 // Create a router instance
 var router = express.Router();
 
-router.get("/reservierungen", (req, res) => {
-    // Write "Hello World" into the response object
-    res.send("Hello World3!");
-  });
+router.get("/reservierungen/akzeptieren", (req, res) =>{
+  res.status(200).send("Die Reservierung wurde akzeptiert");
+});
 
-router.delete("/reservierungen/id"), (req, res) =>{
-  res.send("Hello World");
-}
+router.get("/reservierungen/ablehnen", (req, res) =>{
+  res.status(200).send("Die Reservierung wurde abgelehnt");
+});
+
+router.get("/reservierungen", (req, res) =>{
+  res.status(200).send("Die Reservierungen wurden geladen");
+});
 
 module.exports = router;
