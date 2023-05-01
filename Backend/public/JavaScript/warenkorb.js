@@ -5,20 +5,28 @@ document.addEventListener("DOMContentLoaded", () =>
     {
         try
         {
-            console.log('Button clicked!');
-            const response = await fetch('/api/v1/warenkorb',
-            {
-                method: 'POST',
-                headers:
+            if (Produkte.length !== 0) {
+                console.log('Button clicked!');
+                const response = await fetch('/api/v1/warenkorb',
                 {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({"Produkte" : Produkte})
-            });
-
-            const status = await response.status;
-            const statusText = await response.text();
-            console.log(status, statusText);
+                    method: 'POST',
+                    headers:
+                    {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"Produkte" : Produkte})
+                });
+    
+                localStorage.removeItem('Produkte');
+                Produkte = [];
+    
+                const status = await response.status;
+                const statusText = await response.text();
+                console.log(status, statusText);
+            }
+            else {
+                alert("Sie haben keine Produkte im Warenkorb.\nZum Reservieren fügen Sie bitte zuerst Produkte hinzu!");
+            }
         }
 
         catch (error)
@@ -26,40 +34,76 @@ document.addEventListener("DOMContentLoaded", () =>
             console.error(error);
         }
     });
+
+    document.getElementById("reservieren").addEventListener("click", function() {
+        // Das Modal-Element wird gesucht und die Methode modal('hide') wird ausgeführt, um es zu schließen
+        var modal = document.getElementById("staticBackdrop");
+        var modalObj = bootstrap.Modal.getInstance(modal);
+        modalObj.hide();
+        closeCart();
+    });
 });
 
 let Produkte = [];
+let JSONString;
+let elementLi = '<li class="list-group-item d-flex justify-content-between align-items-start">' +
+                    '<div class="ms-2 me-auto">' +
+                        '<div class="fw-bold" id="productName"></div>' +
+                    '</div>' +
+                    '<span class="badge bg-primary rounded-pill" id="productQuantity"></span>' +
+                '</li>'
 
-function addProduct(name, id) {
-    let menge = document.getElementById(id).value;
+function addProduct(id, mengeId) {
+    var JSONString = localStorage.getItem("Produkte");
 
-    let product = {name: name, menge: menge }; // Neues Produkt mit Namen und Menge als JSON-Objekt erstellen
+    if (JSONString !== null) {
+        Produkte = JSON.parse(JSONString);
+    }
+    
+    let name = document.getElementById(id).innerHTML;
+    let menge = parseInt(document.getElementById(mengeId).value);
+    let product = {id: id, name: name ,menge: menge}; // Neues Produkt mit Namen und Menge als JSON-Objekt erstellen
     Produkte.push(product); // Produkt zum Array hinzufügen
     console.log(Produkte); // Warenkorb im Console-Log anzeigen
+
+    for (var i = 0; i < Produkte.length; i++) {
+        for (var j = i+1; j < Produkte.length; j++) {
+            if (Produkte[i].name === Produkte[j].name) {
+                Produkte[i].menge = parseInt(Produkte[i].menge) + parseInt(Produkte[j].menge);
+                Produkte.splice(j, j);
+            }
+        }
+    }
+
+    var JSONString = JSON.stringify(Produkte);
+    localStorage.setItem("Produkte", JSONString);
 }
 
 function outputCart() {
-		// JSON-Array in ein JavaScript-Array parsen
+        var JSONString = localStorage.getItem("Produkte");
+
+        if (JSONString !== null) {
+            Produkte = JSON.parse(JSONString);
+        }
 		// HTML-Element auswählen, an dem die Liste angezeigt werden soll
 		var produktListe = document.getElementById('cart');
 
 		// Schleife durchläuft jedes Produkt und fügt es der Liste hinzu
-		for (var i = 0; i < Produkte.length; i++) {
+        for (var i = 0; i < Produkte.length; i++) {
 			var product = Produkte[i];
-			var productName = product.name;
-			var productMenge = product.menge;
 			var listenElement = document.createElement('li');
-			listenElement.innerHTML = productName + ', Menge:' + productMenge;
-			produktListe.appendChild(listenElement);
-		}
+            listenElement.innerHTML = elementLi;
+            produktListe.appendChild(listenElement);
+            document.getElementById('productName').id = "productName" + product.id;
+            document.getElementById("productQuantity").id = "productQuantity" + product.id;
+            var element = document.getElementById("productName" + product.id);
+            element.innerHTML = product.name;
+            element = document.getElementById("productQuantity" + product.id);
+            element.innerHTML = "Menge: " + product.menge;
+        }
 }
 
 function closeCart() {
     var produktListe = document.getElementById('cart');
     produktListe.innerHTML = "";
-}
-
-function deleteProduct() {
-    var produkt = document.getElementById(this.id);
-    produkt 
 }
