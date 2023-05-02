@@ -13,7 +13,10 @@ document.addEventListener("DOMContentLoaded", async() =>
     } 
 });
 
-let elementAccordion = '<div class="accordion accordion-flush" id="accordionFlushExample">' +
+
+function generateAccordion() 
+{
+    let elementAccordion = '<div class="accordion accordion-flush" id="accordionFlushExample">' +
                             '<div class="accordion-item">' +
                                 '<h2 class="accordion-header">' +
                                     '<button id="id" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse" aria-expanded="false" aria-controls="flush-collapseOne"></button>' +
@@ -31,9 +34,7 @@ let elementAccordion = '<div class="accordion accordion-flush" id="accordionFlus
                                 '</div>' +
                             '</div>' +
                         '</div>'
-
-
-function generateAccordion() {
+                        
     let accordion = document.getElementById("testA");
 
     for (let i = 0; i < Produkte.length; i++) {
