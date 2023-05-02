@@ -9,8 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../CSS/style.css">
     <link rel="stylesheet" href="../CSS/ueberuns.css">
-    <script src="../Java Skript/script.js"></script>
-    <script src="../Java Skript/warenkorb.js"></script>
+    <script src="../JavaScript/script.js"></script>
+    <script src="../JavaScript/warenkorb.js"></script>
 </head>
 <body>
     <nav>
@@ -23,7 +23,7 @@
         </div>
         <div class="cart">
             <!-- Button trigger modal -->
-            <button type="button" class="btn button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button type="button" onclick="outputCart()" class="btn button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48">
                     <path d="M14 36c-2.21 0-3.98 1.79-3.98 4s1.77 4 3.98 4 4-1.79 4-4-1.79-4-4-4zm-12-32v4h4l7.19 15.17-2.7 4.9c-.31.58-.49 1.23-.49 1.93 0 2.21 1.79 4 4 4h24v-4h-23.15c-.28 0-.5-.22-.5-.5 0-.09.02-.17.06-.24l1.79-3.26h14.9c1.5 0 2.81-.83 3.5-2.06l7.15-12.98c.16-.28.25-.61.25-.96 0-1.11-.9-2-2-2h-29.57l-1.9-4h-6.53zm32 32c-2.21 0-3.98 1.79-3.98 4s1.77 4 3.98 4 4-1.79 4-4-1.79-4-4-4z"/>
                     <path d="M0 0h48v48h-48z" fill="none"/>
@@ -32,39 +32,21 @@
             
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Warenkorb</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ol class="list-group list-group-numbered">
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                              <div class="ms-2 me-auto">
-                                <div class="fw-bold">Äpfel</div>
-                              </div>
-                              <span class="badge bg-primary rounded-pill">3 Stück</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                              <div class="ms-2 me-auto">
-                                <div class="fw-bold">Eier</div>
-                              </div>
-                              <span class="badge bg-primary rounded-pill">10 Stück</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                              <div class="ms-2 me-auto">
-                                <div class="fw-bold">Tomaten</div>
-                              </div>
-                              <span class="badge bg-primary rounded-pill">10 Stück</span>
-                            </li>
-                          </ol>
-                    </div>
-                    <div class="modal-footer">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Warenkorb</h1>
+                        <button type="button" onclick="closeCart()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ol class="list-group list-group-numbered" id="cart">
+                            </ol>
+                        </div>
+                        <div class="modal-footer">
                         <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="E-Mail">
-                        <button type="button" class="btn btn-primary" id="reservieren">Reservieren</button>
+                        <button type="button" id="reservieren" class="btn btn-primary">Reservieren</button>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
     </nav>

@@ -14,9 +14,9 @@ router.post("/warenkorb", (req, res) =>
       console.log("Anzahl der Produkte:", warenkorb.length);  //Anzahl der Produkte die in dem Warenkorb waren
       for (let i = 0; i < warenkorb.length; i++)  //For schleife die alle Produkte aus dem JSON Holt das JSON Array könnte aber hier vermutlich gleich an DAO weitergeleitet werden 
       {
-        const produkt = warenkorb[i].name;
+        const name = warenkorb[i].name;
         const menge = warenkorb[i].menge;
-        console.log(produkt, menge);
+        console.log(name, menge);
       }
       res.status(201).send("Die Reservierung wurde erfolgreich entgegen genommen");
     }
