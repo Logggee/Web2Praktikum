@@ -1,2 +1,2 @@
 # Ignore any node_modules folder git encounters from here
-**/node_modules/
+node_modules
