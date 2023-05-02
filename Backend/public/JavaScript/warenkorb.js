@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () =>
     });
 });
 
-let Produkte = [];
+var Produkte = [];
 let JSONString;
 let elementLi = '<li class="list-group-item d-flex justify-content-between align-items-start">' +
                     '<div class="ms-2 me-auto">' +
@@ -54,6 +54,7 @@ let elementLi = '<li class="list-group-item d-flex justify-content-between align
                 '</li>'
 
 function addProduct(id, mengeId) {
+    console.log("Test");
     var JSONString = localStorage.getItem("Produkte");
 
     if (JSONString !== null) {
@@ -94,8 +95,10 @@ function outputCart() {
 			var listenElement = document.createElement('li');
             listenElement.innerHTML = elementLi;
             produktListe.appendChild(listenElement);
+
             document.getElementById('productName').id = "productName" + product.id;
             document.getElementById("productQuantity").id = "productQuantity" + product.id;
+
             var element = document.getElementById("productName" + product.id);
             element.innerHTML = product.name;
             element = document.getElementById("productQuantity" + product.id);
