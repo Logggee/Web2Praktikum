@@ -1,8 +1,3 @@
-function openPopupImpressum() {
-    var modal = document.getElementById("modalImpressum");
-    modal.style.display = "block";
-  }
-
 function loggingin(){
     var meta_user="admin";
     var meta_pw="admin";
