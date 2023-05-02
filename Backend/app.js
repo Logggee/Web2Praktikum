@@ -6,7 +6,10 @@ try
 {
     // connect database
     console.log('Connect database...');
-    //hier muss nun enstprechender Code zum Verbinden der Datenbank eingefügt werden
+    const Database = require('better-sqlite3');
+    const dbOptions = { verbose: console.log };
+    const dbFile = './DB/db.sqlite';
+    const dbConnection = new Database(dbFile, dbOptions);
 
 
     //create Server
@@ -19,6 +22,8 @@ try
 
     console.log('Creating and configuring Web Server...');
     var app = express();    //express object erzeugen
+
+    app.locals.dbConnection = dbConnection;
 
     //Midelwares die Standartmäßig erzeugt wurden
     app.use(logger('dev'));     //Logger Middleware um HTTP verkehr auf der Konsole zu loggen parameter gibt den Stil an
