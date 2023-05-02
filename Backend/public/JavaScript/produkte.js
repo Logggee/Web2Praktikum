@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async() =>
         const response = await fetch("/api/v1/produkte/alle");
         const data = await response.json();
         console.log(data);
-        generateAccordion();
+        generateAccordion(data);
     } 
     catch (error) 
     {
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", async() =>
 });
 
 
-function generateAccordion() 
+function generateAccordion(data) 
 {
     let elementAccordion = '<div class="accordion accordion-flush" id="accordionFlushExample">' +
                             '<div class="accordion-item">' +
@@ -34,27 +34,28 @@ function generateAccordion()
                                 '</div>' +
                             '</div>' +
                         '</div>'
-                        
-    let accordion = document.getElementById("testA");
 
-    for (let i = 0; i < Produkte.length; i++) {
-        let product = Produkte[i];
+    let accordion = document.getElementById("main");
+
+    for (let i = 0; i < data.length; i++) 
+    {
+        let product = data[i];
 		let accordionElement = document.createElement('div');
         accordionElement.innerHTML = elementAccordion;
         accordion.appendChild(accordionElement);
 
-        document.getElementById("id").id = product.id;
-        document.getElementById("flush-collapse").id = "flush-collapse" + product.id;
-        document.getElementById(product.id).setAttribute("data-bs-target", ("#flush-collapse" + product.id));
-        document.getElementById("info").id = "info" + product.id;
-        document.getElementById("einheit").id = "einheit" + product.id;
-        document.getElementById("menge").id = "menge" + product.id;
-        document.getElementById("button").id = "button" + product.id;
-        document.getElementById("button" + product.id).setAttribute("onclick", ("addProduct('" + product.id +"', 'menge" + product.id + "')"));
+        document.getElementById("id").id = product.produkt_id;
+        document.getElementById("flush-collapse").id = "flush-collapse" + product.produkt_id;
+        document.getElementById(product.produkt_id).setAttribute("data-bs-target", ("#flush-collapse" + product.produkt_id));
+        document.getElementById("info").id = "info" + product.produkt_id;
+        document.getElementById("einheit").id = "einheit" + product.produkt_id;
+        document.getElementById("menge").id = "menge" + product.produkt_id;
+        document.getElementById("button").id = "button" + product.produkt_id;
+        document.getElementById("button" + product.produkt_id).setAttribute("onclick", ("addProduct('" + product.produkt_id +"', 'menge" + product.produkt_id + "')"));
 
-        let element = document.getElementById(product.id);
+        let element = document.getElementById(product.produkt_id);
         element.innerHTML = product.name;
-        element = document.getElementById("info" + product.id);
-        element.innerHTML = product.info;
+        element = document.getElementById("info" + product.produkt_id);
+        element.innerHTML = product.beschreibung;
     }
 }
