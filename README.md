@@ -59,9 +59,15 @@ $ npm run start
 $ npx express-generator --no-view
 ```
 - mit diesem npx befehl kann man sich eine standart Express Ordnerstrucktur erzeugen lassen.
+
 - ebenfalls ist nun nodemon installiert, dies bewirkt das bei Änderungen der Server nicht jedes mal neu gestartet werden muss
 ```shell
 $ npm run dev
 ```
 - mit diesem Befehl wird der Server im developer Modus gestartet welcher dann bei änderungen direkt von nodemon immer neu gestartet werden muss um die änderungen sehen zu können muss der Browser aber refreshed werden
 - Im Browser kann man dann unter der URL http://localhost:8000/HTML/start.html die Seite Aufrufen
+- Wenn ihr das Projekt vo git clonet sollte ein 
+```shell
+$ npm install 
+```
+reichen um alle benötigten dependencies zu laden, da node_modules nicht mit versioniert wird.
