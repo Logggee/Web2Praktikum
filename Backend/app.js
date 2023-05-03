@@ -37,6 +37,9 @@ try
 
     //Alle Routen die auf die Routings verweißen
     
+    var router = require('./public/JavaScript/tests.js');
+    app.use(TOPLEVELPATH, router);
+
     var router = require('./routes/warenkorbRouting.js');
     app.use(TOPLEVELPATH, router);
 
