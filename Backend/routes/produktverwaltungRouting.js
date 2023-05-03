@@ -11,12 +11,24 @@ router.delete("/produktverwaltung/loeschen", (req, res) =>{
   res.status(200).send("Produkt würde geloescht");
 });
 
-router.post("/produktverwaltung/hinzufuegen", (req, res) =>{ 
-  res.status(200).send("Produkt wurde hinzugefuegt");
-});*/
 
-router.get("/produktverwaltung", (req, res) => {
-  res.status(200).send("Alle Produkte wurden geladen");
-});
+router.post("/produktverwaltung/hinzufuegen", productAdd(req,res));
+
+const productAdd = (req, res) =>
+{
+
+  try
+  {
+    const name = req.body.name;
+    const text = req.body.text;
+  }
+
+  catch
+  {
+
+  }
+  res.status(200).send("Produkt wurde hinzugefuegt");
+}
+*/
 
 module.exports = router;
