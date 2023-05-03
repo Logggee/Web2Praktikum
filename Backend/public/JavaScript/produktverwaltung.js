@@ -52,6 +52,14 @@ document.addEventListener("DOMContentLoaded", async() =>
     {
         console.error(error);
     }
+
+    document.getElementById("addNewProduct").addEventListener("click", function() 
+    {
+        // Das Modal-Element wird gesucht und die Methode modal('hide') wird ausgeführt, um es zu schließen
+        var modal = document.getElementById("modalProduct");
+        var modalObj = bootstrap.Modal.getInstance(modal);
+        modalObj.hide();
+    });
 });
 
 //Fetch für Bestandsmenge ändern
@@ -66,10 +74,13 @@ async function changeProduct(id)
       const status = await response.status;
       const statusText = await response.text();
       console.log(status, statusText);
-    } catch (error) {
+    } 
+    
+    catch (error) 
+    {
       console.error(error);
     }
-  }
+}
   
 //Fetch um Produkt zu löschen
 async function deleteProduct(id)
@@ -140,5 +151,7 @@ function generateAccordionOwner(data)
         element.innerHTML = product.name;
         element = document.getElementById("info" + product.produkt_id);
         element.innerHTML = product.beschreibung;
+        element = document.getElementById("menge" + product.produkt_id);
+        element.setAttribute("value", product.lagermenge);
     }
 }

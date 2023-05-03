@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", () =>
         }
     });
 
-    document.getElementById("reservieren").addEventListener("click", function() {
+    document.getElementById("reservieren").addEventListener("click", function() 
+    {
         // Das Modal-Element wird gesucht und die Methode modal('hide') wird ausgeführt, um es zu schließen
         var modal = document.getElementById("staticBackdrop");
         var modalObj = bootstrap.Modal.getInstance(modal);
