@@ -46,15 +46,8 @@ document.addEventListener("DOMContentLoaded", () =>
 
 var Produkte = [];
 let JSONString;
-let elementLi = '<li class="list-group-item d-flex justify-content-between align-items-start">' +
-                    '<div class="ms-2 me-auto">' +
-                        '<div class="fw-bold" id="productName"></div>' +
-                    '</div>' +
-                    '<span class="badge bg-primary rounded-pill" id="productQuantity"></span>' +
-                '</li>'
 
 function addProduct(id, mengeId) {
-    console.log("Test");
     var JSONString = localStorage.getItem("Produkte");
 
     if (JSONString !== null) {
@@ -88,25 +81,57 @@ function outputCart() {
         }
 		// HTML-Element auswählen, an dem die Liste angezeigt werden soll
 		var produktListe = document.getElementById('cart');
+        let elementLi = '<li class="list-group-item d-flex justify-content-between align-items-start">' +
+                    '<div class="ms-2 me-auto">' +
+                        '<div class="fw-bold" id="productName"></div>' +
+                    '</div>' +
+                    '<span class="badge bg-primary rounded-pill" id="productQuantity"></span>' +
+                    '<button type="button" id="buttonDelete" class="btn badge bg-primary rounded-pill">Löschen</button>'
+                '</li>'
 
 		// Schleife durchläuft jedes Produkt und fügt es der Liste hinzu
         for (var i = 0; i < Produkte.length; i++) {
 			var product = Produkte[i];
 			var listenElement = document.createElement('li');
+            listenElement.setAttribute("id", ("productCart" + product.id));
             listenElement.innerHTML = elementLi;
             produktListe.appendChild(listenElement);
 
             document.getElementById('productName').id = "productName" + product.id;
             document.getElementById("productQuantity").id = "productQuantity" + product.id;
+            document.getElementById("buttonDelete").id = "buttonDelete" + product.id;
 
             var element = document.getElementById("productName" + product.id);
             element.innerHTML = product.name;
             element = document.getElementById("productQuantity" + product.id);
             element.innerHTML = "Menge: " + product.menge;
+            document.getElementById("buttonDelete" + product.id).setAttribute("onclick", ("deleteProduct('productCart" + product.id + "','" + product.id + "')"));
         }
 }
 
 function closeCart() {
     var produktListe = document.getElementById('cart');
     produktListe.innerHTML = "";
+}
+
+function deleteProduct(productCartId, id) {
+    var produktListe = document.getElementById(productCartId);
+    produktListe.innerHTML = "";
+
+    for (var i = 0; i < Produkte.length; i++) {
+        if (Produkte[i].id === id) {
+            if (i === 0) {
+                Produkte.splice(0, 1);
+                localStorage.removeItem('Produkte');
+                var JSONString = JSON.stringify(Produkte);
+                localStorage.setItem("Produkte", JSONString);
+            }
+            else {
+                Produkte.splice(i, i);
+                localStorage.removeItem('Produkte');
+                var JSONString = JSON.stringify(Produkte);
+                localStorage.setItem("Produkte", JSONString);
+            }
+        }
+    }
 }
