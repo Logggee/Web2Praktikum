@@ -17,28 +17,73 @@ document.addEventListener("DOMContentLoaded", async() =>
             try
             {
                 console.log('Produkt hinzufügen');
-                productName = document.getElementById("inputname");
-                productText = document.getElementById("inputtext");
-                productQuantity = document.getElementById("inputquantity");
-                allId = await fetch("/api/v1/produkte/id/alle");
-                //Hier muss Code kommen der die erste verfügbare id in allId Array findet
-                const response = await fetch("/api/v1/produkte/hinzufuegen",
+
+                //checkForm() überprüft ob alles im Forular ausgefüllt wurde
+                if(checkForm())
                 {
-                    method: 'POST',
-                    headers:
+                    const productName = document.getElementById("inputname").value;                 //Produktnamen holen
+                    const productText = document.getElementById("inputtext").value;                 //Beschreibungstext holen
+                    const productQuantity = document.getElementById("inputquantity").value;         //Bestandsmenge holen
+                    const selectedRadio = document.querySelector('input[name="btnradio"]:checked'); //Herausfinden welcher Radio gesetzt wurde
+                    const selectedLabel = document.querySelector(`label[for="${selectedRadio.id}"]`);
+                    const unit = selectedLabel.innerText;
+                    //const allId = await fetch("/api/v1/produkte/id/alle");                    //Alle aktuellen vergeben Ids holen
+                    //JSON Array zum testen des Routing
+                    const allId = 
+                    [
+                        {"id": 1},
+                        {"id": 2},
+                        {"id": 4},
+                        {"id": 6},
+                        {"id": 8},
+                        {"id": 10}
+                    ];
+
+                    const id = findId(allId);
+
+                    console.log(productName);
+                    console.log(id);
+                    console.log(productText);
+                    console.log(unit);
+                    console.log(productQuantity);
+
+                    //Alle Daten in den Post Request verpacken und schicken
+                    const response = await fetch("/api/v1/produkte/hinzufuegen",
                     {
-                        Accept: 'application.json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(
-                        {'name': productName, 
-                        'text': productText, 
-                        'quantity': productQuantity
-                        })
-                });
-                const status = await response.status;
-                const statusText = await response.text();
-                console.log(status, statusText);
+                        method: 'POST',
+                        headers:
+                        {
+                            Accept: 'application.json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(
+                            {'name': productName,
+                            'id': id, 
+                            'text': productText,
+                            'unit':  unit,
+                            'quantity': productQuantity
+                            })
+                    });
+
+                    //Alle Felder im Formular wieder zurücksetzen
+                    document.getElementById("inputname").value = "";                 //Produktnamen zurücksetzen
+                    document.getElementById("inputtext").value = "";                 //Beschreibungstext zurücksetzen
+                    document.getElementById("btnradio1").checked = true;             //Radio zurücksetzen
+                    document.getElementById("inputquantity").value = "";             //Bestandsmenge zurücksetzen
+                    document.getElementById("inputname").style.backgroundColor = "white";       //backgoundcolor zurücksetzen
+                    document.getElementById("inputtext").style.backgroundColor = "white";       //backgoundcolor zurücksetzen
+                    document.getElementById("inputquantity").style.backgroundColor = "white";   //backgoundcolor zurücksetzen
+
+                    //Response in der Konsole ausgeben
+                    const status = await response.status;
+                    const statusText = await response.text();
+                    console.log(status, statusText);
+                }
+
+                else
+                {
+                    console.log("Ein fehler im Formular ist aufgetreten");
+                }
             }
 
             catch (error)
@@ -154,4 +199,44 @@ function generateAccordionOwner(data)
         element = document.getElementById("menge" + product.produkt_id);
         element.setAttribute("value", product.lagermenge);
     }
+}
+
+function findId(allId)
+{
+    let id = 0;
+
+    while(allId.includes(id))
+    {
+        id++;
+    }
+
+    return id;
+}
+
+function checkForm()
+{
+    let formValid = true;
+
+    if(document.getElementById("inputname").value == "")
+    {
+        window.alert("Bitte einen Namen für das Produkt vergeben");
+        document.getElementById("inputname").style.backgroundColor = "red";
+        formValid = false;
+    }
+
+    if(document.getElementById("inputtext").value == "")
+    {
+        window.alert("Bitte eine Beschreibung für das Produkt vergeben");
+        document.getElementById("inputtext").style.backgroundColor = "red";
+        formValid = false;
+    }
+
+    if(document.getElementById("inputquantity").value == "")
+    {
+        window.alert("Bitte eine Bestandmenge für das Produkt vergeben");
+        document.getElementById("inputquantity").style.backgroundColor = "red";
+        formValid = false;
+    }
+
+    return formValid;
 }

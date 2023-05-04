@@ -55,4 +55,10 @@ router.delete('/produkte/loeschen/:id', (req,res) =>
   res.status(200).send(`Produkt mit ID ${id} wurde gelöscht`);
 });
 
+router.post("/produkte/hinzufuegen", (req, res) => 
+{
+  console.log(req.body);
+  res.status(200).send("Produkt ändern Routing wurde erreicht");
+});
+
 module.exports = router;

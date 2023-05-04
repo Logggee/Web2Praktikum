@@ -47,11 +47,7 @@ try
     
     var router = require('./routes/reservierungenRouting.js');
     app.use(TOPLEVELPATH, router);
-
-    var router = require('./routes/produktverwaltungRouting.js');
-    app.use(TOPLEVELPATH, router);
     
-
     // senden einer default Error Message wenn kein Passender Endpunkt gefunden wurde
     app.use(function (request, response) 
     {
