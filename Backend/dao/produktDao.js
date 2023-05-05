@@ -8,9 +8,9 @@ class ProduktDao {
         return this.conn;
     }
 
-    loadAll() {
-        
-        let sql = 'select p.name, p.beschreibung, p.bild, e.name , p.lagermenge, p.produkt_id  from produkt p, einheit e where p.fk_einheit = e.einheit_id;';
+    loadAll() 
+    {
+        let sql = 'select p.name, p.beschreibung, p.bild, e.name as "einheit" , p.lagermenge, p.produkt_id  from produkt p, einheit e where p.fk_einheit = e.einheit_id;';
         let statement = this.conn.prepare(sql);
         let result = statement.all();
 
@@ -55,8 +55,8 @@ class ProduktDao {
         return 200;
     }
 
-    changeProduct(id, lagermenge) {
-        let sql = 'UPDATE produkt lagermenge=? WHERE produkt_id=?;';
+    changeQuantity(id, lagermenge) {
+        let sql = 'UPDATE produkt set lagermenge=? WHERE produkt_id=?;';
         let statement = this.conn.prepare(sql);
         let params = [lagermenge, id];
         statement.run(params);

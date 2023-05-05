@@ -28,21 +28,8 @@ document.addEventListener("DOMContentLoaded", async() =>
                     const selectedLabel = document.querySelector(`label[for="${selectedRadio.id}"]`);
                     const unit = selectedLabel.innerText;
                     //const allId = await fetch("/api/v1/produkte/id/alle");                    //Alle aktuellen vergeben Ids holen
-                    //JSON Array zum testen des Routing
-                    const allId = 
-                    [
-                        {"id": 1},
-                        {"id": 2},
-                        {"id": 4},
-                        {"id": 6},
-                        {"id": 8},
-                        {"id": 10}
-                    ];
-
-                    const id = findId(allId);
 
                     console.log(productName);
-                    console.log(id);
                     console.log(productText);
                     console.log(unit);
                     console.log(productQuantity);
@@ -58,7 +45,6 @@ document.addEventListener("DOMContentLoaded", async() =>
                         },
                         body: JSON.stringify(
                             {'name': productName,
-                            'id': id, 
                             'text': productText,
                             'unit':  unit,
                             'quantity': productQuantity
@@ -112,7 +98,8 @@ async function changeProduct(id)
 {
     try {
       console.log('Produkt ändern');
-      const response = await fetch(`/api/v1/produkte/aendern/${id}`, 
+      const quantity = document.getElementById("menge" + id).value;
+      const response = await fetch(`/api/v1/produkte/aendern/${id}?quantity=${quantity}`, 
       { 
         method: 'PATCH' 
       });
@@ -199,18 +186,6 @@ function generateAccordionOwner(data)
         element = document.getElementById("menge" + product.produkt_id);
         element.setAttribute("value", product.lagermenge);
     }
-}
-
-function findId(allId)
-{
-    let id = 0;
-
-    while(allId.includes(id))
-    {
-        id++;
-    }
-
-    return id;
 }
 
 function checkForm()
