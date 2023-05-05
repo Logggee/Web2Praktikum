@@ -1,12 +1,35 @@
 const express = require('express');
+const ReservierungDao = require('../dao/reservierungDao.js');
 // Create a router instance
-var router = express.Router();
-const bodyParser = require('body-parser');
+let router = express.Router();
 
-const app = express();
-app.use(bodyParser.json());
+router.get("/reservierungen/alle", (req, res) =>
+{
+    const reservierungDao = new ReservierungDao(req.app.locals.dbConnection);
 
-router.get("/reservierungen/akzeptieren", (req, res) =>{
+    try
+    {
+      let result = reservierungDao.loadAll();
+      console.log(result.length);
+      console.log(JSON.stringify(result));
+    }
+
+    catch (ex)
+    {
+      console.log("Routing Reservierung: Error loading all records. Exception occured: " + ex.message);
+      res.status(400).json({"fehler": true, "nachricht": ex.message});
+    }
+});
+
+
+
+
+
+
+
+
+
+/*router.get("/reservierungen/akzeptieren", (req, res) =>{
   res.status(200).send("Die Reservierung wurde akzeptiert");
 });
 
@@ -14,22 +37,19 @@ router.get("/reservierungen/ablehnen", (req, res) =>{
   res.status(200).send("Die Reservierung wurde abgelehnt");
 });
 
-router.get("/reservierungen", (req, res) =>{
-  res.status(200).send("Die Reservierungen wurden geladen");
-});
-
 router.post("/warenkorb", (req, res) => 
   {
+    const reservierungDao = new ReservierungDao(req.app.locals.dbConnection);
+
     try
     {
       const warenkorb = req.body.Produkte;  //JSON Array aus dem Body herausholen
       console.log("Anzahl der Produkte:", warenkorb.length);  //Anzahl der Produkte die in dem Warenkorb waren
-      for (let i = 0; i < warenkorb.length; i++)  //For schleife die alle Produkte aus dem JSON Holt das JSON Array könnte aber hier vermutlich gleich an DAO weitergeleitet werden 
-      {
-        const name = warenkorb[i].name;
-        const menge = warenkorb[i].menge;
-        console.log(name, menge);
-      }
+      let arr = reservierungDao.loadAll();
+      console.log(arr.length);
+      console.log(JSON.stringify(arr));
+      res.status(200).json(arr);
+
       res.status(201).send("Die Reservierung wurde erfolgreich entgegen genommen");
     }
 
@@ -39,6 +59,6 @@ router.post("/warenkorb", (req, res) =>
       console.error(error);
     }
     
-  });
+  });*/
 
 module.exports = router;
