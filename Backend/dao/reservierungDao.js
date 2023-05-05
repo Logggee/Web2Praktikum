@@ -74,10 +74,8 @@ class ReservierungDao {
     }
 
     loadAll() {
-        //  result muss für die jeweilige Reservierung durch itteriert werden da Ergebnis:
-        // https://i.imgur.com/2BXzQk1.png
-        // Alle Reservierungen gibt (nur überprüfen dass result.reservierungid = die id von der jeweiligen reservierung)
-        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id;';
+        //  wenn nur eine geladen werden soll nutze loadbyID
+        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id;';
         let statement = this.conn.prepare(sql);
         let result = statement.all();
 
@@ -86,7 +84,7 @@ class ReservierungDao {
 
 
     loadbyId(id){
-        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id and r.reservierung_id = ?;';
+        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id and r.reservierung_id = ?;';
         let statement = this.conn.prepare(sql);
         let result = statement.run(id);
 
