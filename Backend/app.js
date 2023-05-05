@@ -36,16 +36,10 @@ try
     console.log('Binding enpoints, top level Path at ' + TOPLEVELPATH);
 
     //Alle Routen die auf die Routings verweißen
-    
-    var router = require('./routes/warenkorbRouting.js');
+    var router = require('./routes/auftraegeRouting.js');
     app.use(TOPLEVELPATH, router);
-
 
     var router = require('./routes/produkteRouting.js');
-    app.use(TOPLEVELPATH, router);
-
-    
-    var router = require('./routes/reservierungenRouting.js');
     app.use(TOPLEVELPATH, router);
     
     // senden einer default Error Message wenn kein Passender Endpunkt gefunden wurde
