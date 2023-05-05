@@ -26,8 +26,13 @@ function generateAccordion(data)
                                         '<img class="bilderAkordion" src="../Bilder/apfel.jpg" alt="Ei">' +
                                         '<a id="info">Frische Äpfel von den eigenen Obstwiesen</a>' +
                                             '<div class="inputDiv">' +
-                                                '<label id="einheit" class="labelInput"></label>' +
+                                                'Verfügbare Menge:'+
+                                                '<input type="number" id="bestandsmenge" name="menge" value="1" min="1" class="output" readonly>' +
+                                                '<div id="einheitBestand" class="unitText"></div>' +
+                                                'Zu Reservierende Menge:' +
+                                                '<label class="labelInput"></label>' +
                                                 '<input type="number" id="menge" name="menge" value="1" min="1" class="input">' +
+                                                '<div id="einheitReservierung"></div>' +
                                             '</div>' +
                                         '<button id="button" type="submit" class="addButton">Hinzufügen</button>' +
                                     '</div>' +
@@ -48,7 +53,9 @@ function generateAccordion(data)
         document.getElementById("flush-collapse").id = "flush-collapse" + product.produkt_id;
         document.getElementById(product.produkt_id).setAttribute("data-bs-target", ("#flush-collapse" + product.produkt_id));
         document.getElementById("info").id = "info" + product.produkt_id;
-        document.getElementById("einheit").id = "einheit" + product.produkt_id;
+        document.getElementById("einheitBestand").id = "einheitBestand" + product.produkt_id;
+        document.getElementById("einheitReservierung").id = "einheitReservierung" + product.produkt_id;
+        document.getElementById("bestandsmenge").id = "bestandsmenge" + product.produkt_id;
         document.getElementById("menge").id = "menge" + product.produkt_id;
         document.getElementById("button").id = "button" + product.produkt_id;
         document.getElementById("button" + product.produkt_id).setAttribute("onclick", ("addProduct('" + product.produkt_id +"', 'menge" + product.produkt_id + "')"));
@@ -57,5 +64,11 @@ function generateAccordion(data)
         element.innerHTML = product.name;
         element = document.getElementById("info" + product.produkt_id);
         element.innerHTML = product.beschreibung;
+        element = document.getElementById("bestandsmenge" + product.produkt_id);
+        element.setAttribute("value", product.lagermenge);
+        element = document.getElementById("einheitBestand" + product.produkt_id);
+        element.innerHTML = product.einheit;
+        element = document.getElementById("einheitReservierung" + product.produkt_id);
+        element.innerHTML = product.einheit;
     }
 }

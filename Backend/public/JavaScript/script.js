@@ -4,14 +4,17 @@ function loggingin(){
     var user=document.getElementById("inputuser").value;
     var password=document.getElementById("inputpassword").value
 
-    if(meta_user==user && meta_pw==password){
+    if(meta_user==user && meta_pw==password)
+    {
       //weiterleitung auf produktverwaltung.html
       //window.alert(window.location.href);
       //window.location.assign("produktverwaltung.html")
     }
-    else{
-      window.alert("Falsche Logindaten");
-      //window.location.href("http://www.google.de")
-    }
 
+    else
+    {
+      //window.alert("Falsche Logindaten");
+      //window.location.replace("http://127.0.0.1:8000/html/produktverwaltung.html");
+      window.location.href = "http://127.0.0.1:8000/html/produktverwaltung.html";
+    }
 }
