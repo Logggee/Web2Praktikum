@@ -56,10 +56,10 @@ let JSONString;
 
 function addProduct(id, mengeId) 
 {
-    warehouseQuantity = document.getElementById("bestandsmenge" + id).value;
-    reservationQuantity = document.getElementById(mengeId).value;
+    warehouseQuantity = parseInt(document.getElementById("bestandsmenge" + id).value);
+    reservationQuantity = parseInt(document.getElementById(mengeId).value);
 
-    if(warehouseQuantity > reservationQuantity)
+    if(warehouseQuantity >= reservationQuantity)
     {
         var JSONString = localStorage.getItem("Produkte");
 
