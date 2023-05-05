@@ -88,28 +88,42 @@ class ReservierungDao {
 
     loadAll() 
     {
-        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id';
+        let sql = 'select r.reservierung_id ,r.mail from Reservierung r';
         let statement = this.conn.prepare(sql);
-        let result = statement.all();
+        let arrayRes = statement.all();
+        let reservierungen="{";
+        for (let i = 0; i < arrayRes.length; i++) {
+            let produkte=this.loadbyId(arrayRes[i].reservierung_id);
+            reservierungen+='{"id":"'+arrayRes[i].reservierung_id+'",'
+            +'"mail":"'+arrayRes[i].mail+'",'
+            +'"produkte":'+JSON.stringify(produkte);
+        }
+
+        reservierungen+='}'        
 
         return result;
     }
 
-    /* data = { reservierungs_id = 1,
-                mail = "Test@gmail.com",
-                produkte = {    name: "Apfel",
-                                menge: 3,
-                                einheit: "kg"
-
-                                name: "Milch",
-                                menge: 3,
-                                einheit: "Liter"
-                }
-            }
+    /* {
+    "reservierungs_id": 1,
+    "mail": "Test@gmail.com",
+    "produkte": [
+        {
+            "name": "Apfel",
+            "menge": 3,
+            "einheit": "kg"
+        },
+        {
+            "name": "Milch",
+            "menge": 3,
+            "einheit": "Liter"
+        }
+    ]
+}
 */
 
     loadbyId(id){
-        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id and r.reservierung_id = ?;';
+        let sql = 'select p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id and r.reservierung_id = ?;';
         let statement = this.conn.prepare(sql);
         let result = statement.run(id);
 
