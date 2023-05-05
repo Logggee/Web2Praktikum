@@ -17,7 +17,7 @@ class ReservierungDao {
         let statement2 = this.conn.prepare(sql2);
         let result = statement2.run(mail);
 
-        return result;
+        return result; //Reservierungs-ID
     }
 
     createAuftrag(reservierung, produkt, menge){ // Erstellt eine Bestellposition
@@ -25,7 +25,7 @@ class ReservierungDao {
         let sql = 'INSERT INTO auftrag (fk_reservierung, fk_produkt, menge) VALUES (?,?,?);'; 
         let statement = this.conn.prepare(sql);
         let params = [reservierung, produkt, menge];
-        let result = statement.run(params);
+        statement.run(params);
         
         // Bestellte Menge abziehen
         let sql3 = 'Select lagermenge from produkt where produkt_id = ?;';
@@ -34,14 +34,27 @@ class ReservierungDao {
 
         let lagermengeNeu = bestandmenge.lagermenge-menge;
         let sql2 = 'UPDATE produkt lagermenge=? WHERE produkt_id=?;';
-        let statement2 = this.conn.prepare(sql);
+        let statement2 = this.conn.prepare(sql2);
         let params2 = [lagermengeNeu, id];
         statement2.run(params2);
 
         return 200;
     }
 
-    deleteReservierung(id) { // Ablehnung von Reservierung
+    deleteReservierung(id) {
+        // nun können vorhandene Reservierungen und Aufträge entfernt werden
+        let sql = 'DELETE FROM reservierung WHERE reservierung_id = ?;';
+        let statement = this.conn.prepare(sql);
+        statement.run(id);
+        // Reservierungen gelöscht
+        let sql2 = 'DELETE FROM auftrag WHERE fk_reservierung = ?;';
+        let statement2 = this.conn.prepare(sql2);
+        statement2.run(id);
+        // Aufträge gelöscht
+        return 200;
+    }
+
+    updateDeleteReservierung(id) { // Ablehnung von Reservierung
         //Array bestellte Menge, Produktschlüssel holen
         let sql3 = 'SELECT fk_produkt, menge FROM auftrag WHERE fk_reservierung = ?;';
         let statement3 = this.conn.prepare(sql3);
@@ -61,7 +74,7 @@ class ReservierungDao {
             // neue (alte) Werte reinschreiben
         }
 
-        // nun können vorhgandene Reservierungen und Aufträge entfernt werden
+        // nun können vorhandene Reservierungen und Aufträge entfernt werden
         let sql = 'DELETE FROM reservierung WHERE reservierung_id = ?;';
         let statement = this.conn.prepare(sql);
         statement.run(id);
@@ -73,15 +86,27 @@ class ReservierungDao {
         return 200;
     }
 
-    loadAll() {
-        //  wenn nur eine geladen werden soll nutze loadbyID
-        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id;';
+    loadAll() 
+    {
+        let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id';
         let statement = this.conn.prepare(sql);
         let result = statement.all();
 
         return result;
     }
 
+    /* data = { reservierungs_id = 1,
+                mail = "Test@gmail.com",
+                produkte = {    name: "Apfel",
+                                menge: 3,
+                                einheit: "kg"
+
+                                name: "Milch",
+                                menge: 3,
+                                einheit: "Liter"
+                }
+            }
+*/
 
     loadbyId(id){
         let sql = 'select r.reservierung_id ,r.mail, p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id and r.reservierung_id = ?;';
