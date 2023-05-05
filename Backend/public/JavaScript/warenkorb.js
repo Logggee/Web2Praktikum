@@ -1,39 +1,45 @@
 document.addEventListener("DOMContentLoaded", () =>
 {
     const button = document.getElementById("reservieren");
+
     button.addEventListener('click', async() => 
     {
-        try
+        if(checkEmail())
         {
-            if (Produkte.length !== 0) {
-                console.log('Button clicked!');
-                const response = await fetch('/api/v1/warenkorb',
-                {
-                    method: 'POST',
-                    headers:
+            try
+            {
+                if (Produkte.length !== 0) {
+                    console.log('Button clicked!');
+                    const response = await fetch('/api/v1/warenkorb',
                     {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({"Produkte" : Produkte})
-                });
-    
-                localStorage.removeItem('Produkte');
-                Produkte = [];
-    
-                const status = await response.status;
-                const statusText = await response.text();
-                console.log(status, statusText);
+                        method: 'POST',
+                        headers:
+                        {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({"Produkte" : Produkte})
+                    });
+        
+                    localStorage.removeItem('Produkte');
+                    Produkte = [];
+        
+                    const status = await response.status;
+                    const statusText = await response.text();
+                    console.log(status, statusText);
+                    document.getElementById("email").style.backgroundColor = "white";
+                }
+                else {
+                    alert("Sie haben keine Produkte im Warenkorb.\nZum Reservieren fügen Sie bitte zuerst Produkte hinzu!");
+                }
             }
-            else {
-                alert("Sie haben keine Produkte im Warenkorb.\nZum Reservieren fügen Sie bitte zuerst Produkte hinzu!");
-            }
-        }
 
-        catch (error)
-        {
-            console.error(error);
+            catch (error)
+            {
+                console.error(error);
+            }
         }
     });
+    
 
     document.getElementById("reservieren").addEventListener("click", function() 
     {
@@ -48,30 +54,47 @@ document.addEventListener("DOMContentLoaded", () =>
 var Produkte = [];
 let JSONString;
 
-function addProduct(id, mengeId) {
-    var JSONString = localStorage.getItem("Produkte");
+function addProduct(id, mengeId) 
+{
+    warehouseQuantity = document.getElementById("bestandsmenge" + id).value;
+    reservationQuantity = document.getElementById(mengeId).value;
 
-    if (JSONString !== null) {
-        Produkte = JSON.parse(JSONString);
-    }
-    
-    let name = document.getElementById(id).innerHTML;
-    let menge = parseInt(document.getElementById(mengeId).value);
-    let product = {id: id, name: name ,menge: menge}; // Neues Produkt mit Namen und Menge als JSON-Objekt erstellen
-    Produkte.push(product); // Produkt zum Array hinzufügen
-    console.log(Produkte); // Warenkorb im Console-Log anzeigen
+    if(warehouseQuantity > reservationQuantity)
+    {
+        var JSONString = localStorage.getItem("Produkte");
 
-    for (var i = 0; i < Produkte.length; i++) {
-        for (var j = i+1; j < Produkte.length; j++) {
-            if (Produkte[i].name === Produkte[j].name) {
-                Produkte[i].menge = parseInt(Produkte[i].menge) + parseInt(Produkte[j].menge);
-                Produkte.splice(j, j);
+        if (JSONString !== null) {
+            Produkte = JSON.parse(JSONString);
+        }
+        
+        let name = document.getElementById(id).innerHTML;
+        let menge = parseInt(document.getElementById(mengeId).value);
+        let product = {id: id, name: name ,menge: menge}; // Neues Produkt mit Namen und Menge als JSON-Objekt erstellen
+        Produkte.push(product); // Produkt zum Array hinzufügen
+        console.log(Produkte); // Warenkorb im Console-Log anzeigen
+
+        for (var i = 0; i < Produkte.length; i++) {
+            for (var j = i+1; j < Produkte.length; j++) {
+                if (Produkte[i].name === Produkte[j].name) {
+                    Produkte[i].menge = parseInt(Produkte[i].menge) + parseInt(Produkte[j].menge);
+                    Produkte.splice(j, j);
+                }
             }
         }
+
+        var JSONString = JSON.stringify(Produkte);
+        localStorage.setItem("Produkte", JSONString);
+        document.getElementById(mengeId).style.backgroundColor = "white";
+        document.getElementById(mengeId).value = 1;
     }
 
-    var JSONString = JSON.stringify(Produkte);
-    localStorage.setItem("Produkte", JSONString);
+    else
+    {
+        window.alert("Nicht genügend auf Lager!!!");
+        document.getElementById(mengeId).style.backgroundColor = "red";
+    }
+
+    
 }
 
 function outputCart() {
@@ -135,4 +158,19 @@ function deleteProduct(productCartId, id) {
             }
         }
     }
+}
+
+function checkEmail()
+{
+    const element = document.getElementById("email").value;
+    const emailFormat = /.+\@.+\..+/;
+
+    if(emailFormat.test(element) == false)
+    {
+        window.alert("Eingegebene Email hat nicht das richtige Format!");
+        document.getElementById("email").style.backgroundColor = "red";
+        return false;
+    }
+
+    return true;
 }

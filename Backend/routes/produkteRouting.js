@@ -52,7 +52,7 @@ router.patch('/produkte/aendern/:id', (req, res) =>
       console.log(id);
       console.log(quantity);
       let status = prodDao.changeQuantity(id, quantity);
-      res.status(200).send(`Produkt mit ID ${id} wurde die Menge auf ${quantity} geändert`); 
+      res.status(status).send(`Produkt mit ID ${id} wurde die Menge auf ${quantity} geändert`); 
     }
 
     catch(ex)
