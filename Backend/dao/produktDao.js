@@ -9,7 +9,8 @@ class ProduktDao {
     }
 
     loadAll() {
-        let sql = 'SELECT * FROM produkt;';
+        
+        let sql = 'select p.name, p.beschreibung, p.bild, e.name , p.lagermenge, p.produkt_id  from produkt p, einheit e where p.fk_einheit = e.einheit_id;';
         let statement = this.conn.prepare(sql);
         let result = statement.all();
 
