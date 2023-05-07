@@ -86,49 +86,44 @@ class ReservierungDao {
         return 200;
     }
 
-    loadAll() 
-    {
-        let sql = 'select r.reservierung_id ,r.mail from Reservierung r';
+    loadAll() {
+        let sql = 'SELECT r.reservierung_id, r.mail FROM Reservierung r';
         let statement = this.conn.prepare(sql);
         let arrayRes = statement.all();
-        let reservierungen="{";
+        let reservierungen = [];
         for (let i = 0; i < arrayRes.length; i++) {
-            let produkte=this.loadbyId(arrayRes[i].reservierung_id);
-            reservierungen+='{"id":"'+arrayRes[i].reservierung_id+'",'
-            +'"mail":"'+arrayRes[i].mail+'",'
-            +'"produkte":'+JSON.stringify(produkte);
+          let produkte = this.loadbyId(arrayRes[i].reservierung_id);
+          let obj = {
+            reservierung_id: arrayRes[i].reservierung_id,
+            mail: arrayRes[i].mail,
+            produkte: produkte
+          };
+          reservierungen.push(obj);
         }
+        return reservierungen;
+      }
 
-        reservierungen+='}'        
-
-        return result;
-    }
-
-    /* {
-    "reservierungs_id": 1,
-    "mail": "Test@gmail.com",
-    "produkte": [
-        {
-            "name": "Apfel",
-            "menge": 3,
-            "einheit": "kg"
-        },
-        {
-            "name": "Milch",
-            "menge": 3,
-            "einheit": "Liter"
-        }
-    ]
-}
-*/
-
-    loadbyId(id){
-        let sql = 'select p.name,a.menge , e.name as "einheit" from Auftrag a, Reservierung r, produkt p, einheit e  WHERE a.fk_reservierung = r.reservierung_id and a.fk_produkt = p.produkt_id and p.fk_einheit = e.einheit_id and r.reservierung_id = ?;';
+    loadbyId(id) {
+        let sql = 'SELECT p.name, a.menge, e.name AS einheit ' +
+                'FROM Auftrag a ' +
+                'JOIN Reservierung r ON a.fk_reservierung = r.reservierung_id ' +
+                'JOIN Produkt p ON a.fk_produkt = p.produkt_id ' +
+                'JOIN Einheit e ON p.fk_einheit = e.einheit_id ' +
+                'WHERE r.reservierung_id = ?;';
         let statement = this.conn.prepare(sql);
-        let result = statement.run(id);
-
+        let rows = statement.all(id);
+        let result = [];
+        for (let i = 0; i < rows.length; i++) {
+        let obj = {
+            name: rows[i].name,
+            menge: rows[i].menge,
+            einheit: rows[i].einheit
+        };
+        result.push(obj);
+        }
         return result;
     }
+  
 
 
     toString() {

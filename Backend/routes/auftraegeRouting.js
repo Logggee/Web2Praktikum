@@ -12,6 +12,7 @@ router.get("/reservierungen/alle", (req, res) =>
       let result = reservierungDao.loadAll();
       console.log(result.length);
       console.log(JSON.stringify(result));
+      res.status(200).json(result); 
     }
 
     catch (ex)

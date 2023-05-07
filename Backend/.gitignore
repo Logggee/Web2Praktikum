@@ -1,2 +1,5 @@
 # Ignore any node_modules folder git encounters from here
 node_modules
+
+# Ignore any DB folder git encounters from here
+DB
