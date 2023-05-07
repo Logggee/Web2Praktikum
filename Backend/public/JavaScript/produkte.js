@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", async() =>
         const data = await response.json();
         console.log(data);
         generateAccordion(data);
+        var JSONString = localStorage.getItem("Produkte");  //Local Storage auslesen
+        var produkte = JSON.parse(JSONString);  //In Json parsen
+        for(let i=0; i<produkte.length; i++)    //Alle mengen die im Warenkorb sind von bestandsmengen abziehen
+        {
+            document.getElementById("bestandsmenge" + produkte[i].id).value = document.getElementById("bestandsmenge" + produkte[i].id).value - produkte[i].menge;
+        }
     } 
     catch (error) 
     {
