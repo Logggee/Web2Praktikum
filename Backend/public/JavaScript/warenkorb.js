@@ -145,13 +145,12 @@ function deleteProduct(productCartId, id)
     var produktListe = document.getElementById(productCartId);
     produktListe.innerHTML = "";
 
-    element = document.getElementById("productQuantity1"); //Hier sollte des element Herauskommen welches die menge im warenkorb abholt
-    console.log(element);
-
     for (var i = 0; i < Produkte.length; i++) 
     {
         if (Produkte[i].id === id) 
         {
+            document.getElementById("bestandsmenge" + id).value = parseInt(document.getElementById("bestandsmenge" + id).value) + Produkte[i].menge; //Bestandsmenge wieder erhöhen wenn im Warenkorb gelöscht wird
+
             if (i === 0) 
             {
                 Produkte.splice(0, 1);
