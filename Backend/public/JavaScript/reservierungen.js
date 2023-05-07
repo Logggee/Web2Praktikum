@@ -53,18 +53,18 @@ document.addEventListener("DOMContentLoaded", async() =>
 function generateAccordion(data) 
 {
     let elementAccordion = '<div class="accordion accordion-flush" id="accordionFlushExample">' +
-                                '<div class="accordion-item">' +
-                                    '<h2 class="accordion-header">' +
-                                        '<button id="button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse" aria-expanded="false" aria-controls="flush-collapseOne">' +
-                                            '<div id="reservation"></div><br>' +
-                                            '<div id="number"></div><br>' +
-                                            '<div id="customer">Kunde:</div>' +
-                                        '</button>'
-                                    '</h2>' +
-                                '<div id="flush-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">'
-                                    '<div class="akordionInhalt">'
+                            '<div class="accordion-item">' +
+                                '<h2 class="accordion-header">' +
+                                    '<button id="button" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse" aria-expanded="false" aria-controls="flush-collapseOne">' +
+                                        '<p id="reservation"></p><br>' +
+                                        '<p id="number"></p><br>' +
+                                        '<p id="customer">Kunde:</p>' +
+                                    '</button>' +
+                                '</h2>' +
+                                '<div id="flush-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">' +
+                                    '<div class="akordionInhalt">' +
                                         '<ul class="reservierungsListe">' +
-                                            '<div id="reservationList"></div>' +
+                                            '<li id="reservationList"></li>' +
                                         '</ul>' +
                                         '<div class="buttonsDiv">' +
                                             '<button type="submit" class="acceptButton" id="accept">Bestätigen</button>' +
@@ -81,25 +81,29 @@ function generateAccordion(data)
     {
         let reservation = data[i];
 		let accordionElement = document.createElement('div');
-        //accordionElement.setAttribute("id", reservation.reservierung_id);
+        accordionElement.setAttribute("id", reservation.reservierung_id);
         accordionElement.innerHTML = elementAccordion;
         accordion.appendChild(accordionElement);
 
         document.getElementById("button").id = "button" + reservation.reservierung_id;
         document.getElementById("flush-collapse").id = "flush-collapse" + reservation.reservierung_id;
         document.getElementById("button" + reservation.reservierung_id).setAttribute("data-bs-target", ("#flush-collapse" + reservation.reservierung_id));
-        document.getElementById("reservation").id = "reservation" + reservation.reservierung_id;
-        document.getElementById("number").id = "number" + reservation.reservierung_id;
-        document.getElementById("customer").id = "customer" + reservation.reservierung_id;
         document.getElementById("reservationList").id = "reservationList" + reservation.reservierung_id;
         document.getElementById("accept").id = "accept" + reservation.reservierung_id;
         document.getElementById("cancel").id = "cancel" + reservation.reservierung_id;
-        //document.getElementById("accept" + reservation.reservierung_id).setAttribute("onclick", ("addProduct('" + product.produkt_id +"', 'menge" + product.produkt_id + "')"));
-        //document.getElementById("cancel" + reservation.reservierung_id).setAttribute("onclick", ("addProduct('" + product.produkt_id +"', 'menge" + product.produkt_id + "')"));
+        document.getElementById("accept" + reservation.reservierung_id).setAttribute("onclick", ("acceptReservation('" + reservation.reservierung_id + "')"));
+        document.getElementById("cancel" + reservation.reservierung_id).setAttribute("onclick", ("cancelReservation('" + reservation.reservierung_id + "')"));
 
-        let element = document.getElementById("reservation" + reservation.reservierung_id);
-        element.innerHTML = "ID der Reservierung: " + reservation.reservierung_id;
-        element = document.getElementById("number" + reservation.reservierung_id);
-        element.innerHTML = "Anzahl der reservierten Produkte: " + reservation.produkte.length;
+        let element = document.getElementById("button" + reservation.reservierung_id);
+        element.innerHTML = "ID der Reservierung: " + reservation.reservierung_id + "<br>E-Mail: " + reservation.mail + "<br>Anzahl der reservierten Produkte: " + reservation.produkte.length;
+
+        let list = document.getElementById("reservationList"  + reservation.reservierung_id);
+
+        for (let j = 0; j < reservation.produkte.length; j++)
+        {
+            let listElement = document.createElement('li');
+            listElement.innerHTML = reservation.produkte[j].menge + " " + reservation.produkte[j].einheit + " " + reservation.produkte[j].name;
+            list.appendChild(listElement);
+        }
     }
 }
