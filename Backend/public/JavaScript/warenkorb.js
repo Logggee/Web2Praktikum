@@ -59,7 +59,7 @@ function addProduct(id, mengeId)
     warehouseQuantity = parseInt(document.getElementById("bestandsmenge" + id).value);
     reservationQuantity = parseInt(document.getElementById(mengeId).value);
 
-    if(warehouseQuantity >= reservationQuantity)
+    if(warehouseQuantity >= reservationQuantity) //Prüfen ob mehr reserviert werden soll wie ware vorhanden ist
     {
         var JSONString = localStorage.getItem("Produkte");
 
@@ -84,8 +84,9 @@ function addProduct(id, mengeId)
 
         var JSONString = JSON.stringify(Produkte);
         localStorage.setItem("Produkte", JSONString);
-        document.getElementById(mengeId).style.backgroundColor = "white";
-        document.getElementById(mengeId).value = 1;
+        document.getElementById("bestandsmenge" + id).value = warehouseQuantity - reservationQuantity;  //Reservierte menge lokal von bestandsmenge abziehen
+        document.getElementById(mengeId).style.backgroundColor = "white";   //Eventuell Rot Markierte felder wieder auf weiß setzen
+        document.getElementById(mengeId).value = 1; //Zu Reservierunde Menge wieder auf 1 setzen
     }
 
     else
@@ -97,7 +98,8 @@ function addProduct(id, mengeId)
     
 }
 
-function outputCart() {
+function outputCart() 
+{
         var JSONString = localStorage.getItem("Produkte");
 
         if (JSONString !== null) {
@@ -138,19 +140,27 @@ function closeCart() {
     produktListe.innerHTML = "";
 }
 
-function deleteProduct(productCartId, id) {
+function deleteProduct(productCartId, id) 
+{
     var produktListe = document.getElementById(productCartId);
     produktListe.innerHTML = "";
 
-    for (var i = 0; i < Produkte.length; i++) {
-        if (Produkte[i].id === id) {
-            if (i === 0) {
+    element = document.getElementById("productQuantity" + id); //Hier sollte des element Herauskommen welches die menge im warenkorb abholt
+    console.log(element);
+
+    for (var i = 0; i < Produkte.length; i++) 
+    {
+        if (Produkte[i].id === id) 
+        {
+            if (i === 0) 
+            {
                 Produkte.splice(0, 1);
                 localStorage.removeItem('Produkte');
                 var JSONString = JSON.stringify(Produkte);
                 localStorage.setItem("Produkte", JSONString);
             }
-            else {
+            else 
+            {
                 Produkte.splice(i, i);
                 localStorage.removeItem('Produkte');
                 var JSONString = JSON.stringify(Produkte);
