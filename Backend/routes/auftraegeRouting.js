@@ -1,4 +1,5 @@
 const express = require('express');
+var nodemailer = require('nodemailer');
 const ReservierungDao = require('../dao/reservierungDao.js');
 // Create a router instance
 let router = express.Router();
@@ -22,15 +23,17 @@ router.get("/reservierungen/alle", (req, res) =>
     }
 });
 
-router.delete('/reservierungen/akzeptieren/:id', (req,res) =>
+router.delete('/reservierungen/akzeptieren/:id/:mail', (req,res) =>
 {
   const reservierungDao = new ReservierungDao(req.app.locals.dbConnection);
     try
     {
-      console.log(req.params.id)
       const id = req.params.id;
+      const mail = req.params.mail;
+      console.log("Die Adresse lautet: " + mail)
       let status = reservierungDao.deleteReservierung(id);
-      res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`); 
+      res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`);
+      sendingMailAccept(id, mail); 
     }
 
     catch(ex)
@@ -40,14 +43,16 @@ router.delete('/reservierungen/akzeptieren/:id', (req,res) =>
     }
 });
 
-router.delete('/reservierungen/ablehnen/:id', (req,res) =>
+router.delete('/reservierungen/ablehnen/:id/:mail', (req,res) =>
 {
   const reservierungDao = new ReservierungDao(req.app.locals.dbConnection);
     try
     {
       const id = req.params.id;
-      let status = reservierungDao.updateDeleteReservierung(id);
+      const mail = req.params.mail;
+      let status = reservierungDao.updateDeleteReservierung(id, mail);
       res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`); 
+      sendingMailCancel(id, mail); 
     }
 
     catch(ex)
@@ -82,5 +87,51 @@ router.post("/warenkorb", (req, res) =>
       res.status(400).json({"fehler": true, "nachricht": ex.message});
     }
   });
+
+  async function sendingMailAccept(id, mail) {
+    // Generate test SMTP service account from ethereal.email
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "mail.gmx.net",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: "unser.hofladen@gmx.de", // generated ethereal user
+        pass: "Hofladen!HAS", // generated ethereal password
+      },
+    });
+  
+    // send mail with defined transport object
+    await transporter.sendMail({
+      from: 'unser.hofladen@gmx.de', // sender address
+      to: mail, // list of receivers
+      subject: "ID der Reservierung: " + id, // Subject line
+      html: "<h3>Ihre Reservierung bei <u><b>unser Hofladen</b></u> wurde erfolgreich entgegengenommen!</h3>", // html body
+    });
+  }
+
+  async function sendingMailCancel(id, mail) {
+    // Generate test SMTP service account from ethereal.email
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: "mail.gmx.net",
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: "unser.hofladen@gmx.de", // generated ethereal user
+        pass: "Hofladen!HAS", // generated ethereal password
+      },
+    });
+  
+    // send mail with defined transport object
+    await transporter.sendMail({
+      from: 'unser.hofladen@gmx.de', // sender address
+      to: mail, // list of receivers
+      subject: "ID der Reservierung: " + id, // Subject line
+      html: "<h3>Ihre Reservierung bei <u><b>unser Hofladen</b></u> wurde leider abgelehnt!</h3>", // html body
+    });
+  }
 
 module.exports = router;
