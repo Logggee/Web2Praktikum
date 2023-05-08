@@ -13,7 +13,7 @@ class ReservierungDao {
         let statementCheck = this.conn.prepare(sqlCheck);
         let resultCheck = statementCheck.get(mail).anzahl;
 
-        if(resultCheck === 0)
+        if(resultCheck == 0)
         {
             let sql = 'insert into reservierung (mail) values (?);'; 
             let statement = this.conn.prepare(sql);
@@ -58,17 +58,23 @@ class ReservierungDao {
         let statement2 = this.conn.prepare(sql2);
         statement2.run(id);
         // Aufträge gelöscht
+        console.log("Aufträge akzeptiert und gelöscht!");
         return 200;
     }
 
-    updateDeleteReservierung(id) { // Ablehnung von Reservierung
+    updateDeleteReservierung(id) {
         //Array bestellte Menge, Produktschlüssel holen
         let sql3 = 'SELECT fk_produkt, menge FROM auftrag WHERE fk_reservierung = ?;';
         let statement3 = this.conn.prepare(sql3);
-        let arrayProdukte = statement3.run(id);
+        let arrayProdukte = statement3.all(id);
+    
+        console.log("Löschen des Arrays0:" + arrayProdukte.length);
     
         for (let i = 0; i < arrayProdukte.length; i++) { // einzelne Auftragszeilen durchgehen
             // in bestandsmenge wird die aktuelle bestandsmenge von der jeweiligen Auftragsposition geholt
+    
+            console.log("Löschen des Arrays:" + arrayProdukte[i].fk_produkt);
+    
             let tempsqlmenge = 'SELECT lagermenge FROM produkt WHERE produkt_id = ?;';
             let statementtempsqlmenge = this.conn.prepare(tempsqlmenge);
             let bestandmenge = statementtempsqlmenge.get(arrayProdukte[i].fk_produkt).lagermenge;
@@ -80,7 +86,7 @@ class ReservierungDao {
             statementtemp.run(paramstemp);
             // neue (alte) Werte reinschreiben
         }
-
+    
         // nun können vorhandene Reservierungen und Aufträge entfernt werden
         let sql = 'DELETE FROM reservierung WHERE reservierung_id = ?;';
         let statement = this.conn.prepare(sql);
@@ -92,6 +98,7 @@ class ReservierungDao {
         // Aufträge gelöscht
         return 200;
     }
+    
 
     loadAll() {
         let sql = 'SELECT r.reservierung_id, r.mail FROM Reservierung r';
