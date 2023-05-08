@@ -28,7 +28,6 @@ class ReservierungDao {
     }
 
     createAuftrag(reservierung, produkt, menge){ // Erstellt eine Bestellposition
-        // Lukas: Das muss in einer Schleife aufgerufen werden, in welcher reservierung gleich bleibt - aber produkt und menge durch itteriert
         let sql = 'INSERT INTO auftrag (fk_reservierung, fk_produkt, menge) VALUES (?,?,?);'; 
         let statement = this.conn.prepare(sql);
         let params = [reservierung, produkt, menge];
