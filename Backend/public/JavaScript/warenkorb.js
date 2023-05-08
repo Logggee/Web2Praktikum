@@ -27,9 +27,10 @@ document.addEventListener("DOMContentLoaded", () =>
                         },
                         body: JSON.stringify({"Produkte" : Produkte})
                     });
-        
+                    
                     localStorage.removeItem('Produkte');
                     Produkte = [];
+                    document.getElementById("email").value = "";
         
                     const status = await response.status;
                     const statusText = await response.text();

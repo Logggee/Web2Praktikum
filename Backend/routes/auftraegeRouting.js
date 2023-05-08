@@ -64,13 +64,16 @@ router.post("/warenkorb", (req, res) =>
     try
     {
       const warenkorb = req.body.Produkte;  //JSON Array aus dem Body herausholen
+      console.log(warenkorb);
       let reservierung_id = reservierungDao.createReservierung(warenkorb[0].mail);
 
       for (let i = 0; i < warenkorb.length; i++)
       {
-        let status = reservierungDao.createAuftrag(reservierung_id, warenkorb[i].id, warenkorb[i].menge);
+        reservierungDao.createAuftrag(reservierung_id, warenkorb[i].id, warenkorb[i].menge);
         console.log(reservierung_id, warenkorb[i].id, warenkorb[i].menge);
       }
+
+      res.status(200).send("Daten wurden in Datenbank geladen!");
     }
 
     catch(ex)
@@ -78,7 +81,6 @@ router.post("/warenkorb", (req, res) =>
       console.log("Routing Auftäge: Reservation failed. Exception occured: " + ex.message);
       res.status(400).json({"fehler": true, "nachricht": ex.message});
     }
-    
   });
 
 module.exports = router;
