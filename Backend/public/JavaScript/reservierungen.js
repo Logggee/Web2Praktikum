@@ -54,8 +54,8 @@ function generateAccordion(data)
         document.getElementById("reservationList").id = "reservationList" + reservation.reservierung_id;
         document.getElementById("accept").id = "accept" + reservation.reservierung_id;
         document.getElementById("cancel").id = "cancel" + reservation.reservierung_id;
-        document.getElementById("accept" + reservation.reservierung_id).setAttribute("onclick", ("acceptReservation('" + reservation.reservierung_id + "')"));
-        document.getElementById("cancel" + reservation.reservierung_id).setAttribute("onclick", ("cancelReservation('" + reservation.reservierung_id + "')"));
+        document.getElementById("accept" + reservation.reservierung_id).setAttribute("onclick", ("acceptReservation('" + reservation.reservierung_id + "','" + reservation.mail + "')"));
+        document.getElementById("cancel" + reservation.reservierung_id).setAttribute("onclick", ("cancelReservation('" + reservation.reservierung_id + "','" + reservation.mail + "')"));
 
         let element = document.getElementById("button" + reservation.reservierung_id);
         element.innerHTML = "ID der Reservierung: " + reservation.reservierung_id + "<br>E-Mail: " + reservation.mail + "<br>Anzahl der reservierten Produkte: " + reservation.produkte.length;
@@ -71,12 +71,12 @@ function generateAccordion(data)
     }
 }
 
-async function acceptReservation(id)
+async function acceptReservation(id, mail)
 {
     try
     {
         console.log('Reservierung löschen' + id);
-        const response = await fetch(`/api/v1/reservierungen/akzeptieren/${id}`,
+        const response = await fetch(`/api/v1/reservierungen/akzeptieren/${id}/${mail}`,
         {
             method: 'DELETE'
         });
@@ -93,12 +93,12 @@ async function acceptReservation(id)
     }
 }
 
-async function cancelReservation(id)
+async function cancelReservation(id, mail)
 {
     try
     {
         console.log('Reservierung löschen');
-        const response = await fetch(`/api/v1/reservierungen/ablehnen/${id}`,
+        const response = await fetch(`/api/v1/reservierungen/ablehnen/${id}/${mail}`,
         {
             method: 'DELETE'
         });
