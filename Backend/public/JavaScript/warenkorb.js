@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", () =>
         {
             try
             {
+                let email = document.getElementById("email").value;
+
+                for (let i = 0; i < Produkte.length; i++)
+                {
+                    Produkte[i].mail = email;
+                }
+
                 if (Produkte.length !== 0) {
                     console.log('Button clicked!');
                     const response = await fetch('/api/v1/warenkorb',
@@ -15,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () =>
                         method: 'POST',
                         headers:
                         {
+                            Accept: 'application.json',
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({"Produkte" : Produkte})
@@ -67,9 +75,11 @@ function addProduct(id, mengeId)
             Produkte = JSON.parse(JSONString);
         }
         
+        let mail = "";
         let name = document.getElementById(id).innerHTML;
         let menge = parseInt(document.getElementById(mengeId).value);
-        let product = {id: id, name: name ,menge: menge}; // Neues Produkt mit Namen und Menge als JSON-Objekt erstellen
+        let einheit = document.getElementById("einheitReservierung" + id).innerHTML;
+        let product = {id: id, mail: mail, name: name ,menge: menge, einheit: einheit}; // Neues Produkt mit Namen und Menge als JSON-Objekt erstellen
         Produkte.push(product); // Produkt zum Array hinzufügen
         console.log(Produkte); // Warenkorb im Console-Log anzeigen
 

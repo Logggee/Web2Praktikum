@@ -9,15 +9,22 @@ class ReservierungDao {
     }
 
     createReservierung(mail){ // Generiere Reservierung und gebe id zurück
-        let sql = 'insert into reservierung (mail) values (?);'; 
-        let statement = this.conn.prepare(sql);
-        statement.run(mail);
+        let sqlCheck = 'SELECT COUNT(*) as anzahl from Reservierung r WHERE mail = ? ;'; 
+        let statementCheck = this.conn.prepare(sqlCheck);
+        let resultCheck = statementCheck.get(mail).anzahl;
 
-        let sql2 = 'select reservierung_id from reservierung where mail = ?;'; 
-        let statement2 = this.conn.prepare(sql2);
-        let result = statement2.run(mail);
+        if(resultCheck === 0)
+        {
+            let sql = 'insert into reservierung (mail) values (?);'; 
+            let statement = this.conn.prepare(sql);
+            statement.run(mail);
+        }
 
-        return result; //Reservierungs-ID
+        let sqlGenerateId = 'SELECT reservierung_id from Reservierung r WHERE mail = ?;'; 
+        let statementGenerateId = this.conn.prepare(sqlGenerateId);
+        let resultGenerateId = statementGenerateId.get(mail).reservierung_id;
+        console.log(resultGenerateId);
+        return resultGenerateId;
     }
 
     createAuftrag(reservierung, produkt, menge){ // Erstellt eine Bestellposition
@@ -30,12 +37,13 @@ class ReservierungDao {
         // Bestellte Menge abziehen
         let sql3 = 'Select lagermenge from produkt where produkt_id = ?;';
         let statement3 = this.conn.prepare(sql3);
-        let bestandmenge = statement3.run(produkt);
-
-        let lagermengeNeu = bestandmenge.lagermenge-menge;
-        let sql2 = 'UPDATE produkt lagermenge=? WHERE produkt_id=?;';
+        let bestandmenge = statement3.get(produkt).lagermenge;
+        console.log("Bestandsmenge:" + bestandmenge);
+        let lagermengeNeu = bestandmenge-menge;
+        console.log("LagermengeNeu:" + lagermengeNeu);
+        let sql2 = 'UPDATE produkt set lagermenge=? WHERE produkt_id=?;';
         let statement2 = this.conn.prepare(sql2);
-        let params2 = [lagermengeNeu, id];
+        let params2 = [lagermengeNeu, produkt];
         statement2.run(params2);
 
         return 200;
