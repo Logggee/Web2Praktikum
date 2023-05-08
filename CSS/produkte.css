@@ -50,3 +50,20 @@
     border: none;
     background-color:forestgreen;
 }
+
+.unitText
+{
+    margin-right: 100px;
+}
+
+.btn 
+{
+    margin-left: 10px;
+} 
+
+footer 
+{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }

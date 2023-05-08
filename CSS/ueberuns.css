@@ -16,3 +16,9 @@ main {
     background: var(--background);
     color: var(--text2);
 }
+
+footer 
+{
+    position: absolute;
+    bottom: 0;
+}
