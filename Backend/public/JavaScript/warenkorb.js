@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () =>
                     const statusText = await response.text();
                     console.log(status, statusText);
                     document.getElementById("email").style.backgroundColor = "white";
+                    location.reload()
                 }
                 else {
                     alert("Sie haben keine Produkte im Warenkorb.\nZum Reservieren fügen Sie bitte zuerst Produkte hinzu!");

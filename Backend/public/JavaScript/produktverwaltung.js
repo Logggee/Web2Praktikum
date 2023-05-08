@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", async() =>
                     const status = await response.status;
                     const statusText = await response.text();
                     console.log(status, statusText);
+                    location.reload()
                 }
 
                 else
@@ -106,6 +107,7 @@ async function changeProduct(id)
       const status = await response.status;
       const statusText = await response.text();
       console.log(status, statusText);
+      location.reload()
     } 
     
     catch (error) 
@@ -127,6 +129,7 @@ async function deleteProduct(id)
         const status = await response.status;
         const statusText = await response.text();
         console.log(status, statusText);
+        location.reload()
     }
 
     catch (error)

@@ -84,6 +84,7 @@ async function acceptReservation(id)
         const status = await response.status;
         const statusText = await response.text();
         console.log(status, statusText);
+        location.reload()
     }
 
     catch (error)
@@ -104,6 +105,7 @@ async function cancelReservation(id)
         const status = await response.status;
         const statusText = await response.text();
         console.log(status, statusText);
+        location.reload()
     }
 
     catch (error)
