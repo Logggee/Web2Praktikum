@@ -107,3 +107,44 @@ function generateAccordion(data)
         }
     }
 }
+
+async function acceptReservation(id)
+{
+    try
+    {
+        console.log('Reservierung löschen' + id);
+        const response = await fetch(`/api/v1/reservierungen/akzeptieren/${id}`,
+        {
+            method: 'DELETE'
+        });
+
+        const status = await response.status;
+        const statusText = await response.text();
+        console.log(status, statusText);
+    }
+
+    catch (error)
+    {
+        console.error(error);
+    }
+}
+
+async function cancelReservation(id)
+{
+    try
+    {
+        console.log('Reservierung löschen');
+        const response = await fetch(`/api/v1/reservierungen/ablehnen/${id}`,
+        {
+            method: 'DELETE'
+        });
+        const status = await response.status;
+        const statusText = await response.text();
+        console.log(status, statusText);
+    }
+
+    catch (error)
+    {
+        console.error(error);
+    }
+}

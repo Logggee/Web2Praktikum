@@ -22,13 +22,40 @@ router.get("/reservierungen/alle", (req, res) =>
     }
 });
 
-/*router.get("/reservierungen/akzeptieren", (req, res) =>{
-  res.status(200).send("Die Reservierung wurde akzeptiert");
+router.delete('/reservierungen/akzeptieren/:id', (req,res) =>
+{
+  const reservierungDao = new ReservierungDao(req.app.locals.dbConnection);
+    try
+    {
+      console.log(req.params.id)
+      const id = req.params.id;
+      let status = reservierungDao.deleteReservierung(id);
+      res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`); 
+    }
+
+    catch(ex)
+    {
+      console.log("Routing Produkt: Error loading all records. Exception occured: " + ex.message);
+      res.status(400).json({"fehler": true, "nachricht": ex.message});
+    }
 });
 
-router.get("/reservierungen/ablehnen", (req, res) =>{
-  res.status(200).send("Die Reservierung wurde abgelehnt");
-});*/
+router.delete('/reservierungen/ablehnen/:id', (req,res) =>
+{
+  const reservierungDao = new ReservierungDao(req.app.locals.dbConnection);
+    try
+    {
+      const id = req.params.id;
+      let status = reservierungDao.updateDeleteReservierung(id);
+      res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`); 
+    }
+
+    catch(ex)
+    {
+      console.log("Routing Produkt: Error loading all records. Exception occured: " + ex.message);
+      res.status(400).json({"fehler": true, "nachricht": ex.message});
+    }
+});
 
 router.post("/warenkorb", (req, res) => 
   {
