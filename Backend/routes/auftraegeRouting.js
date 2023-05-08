@@ -22,21 +22,13 @@ router.get("/reservierungen/alle", (req, res) =>
     }
 });
 
-
-
-
-
-
-
-
-
 /*router.get("/reservierungen/akzeptieren", (req, res) =>{
   res.status(200).send("Die Reservierung wurde akzeptiert");
 });
 
 router.get("/reservierungen/ablehnen", (req, res) =>{
   res.status(200).send("Die Reservierung wurde abgelehnt");
-});
+});*/
 
 router.post("/warenkorb", (req, res) => 
   {
@@ -45,21 +37,21 @@ router.post("/warenkorb", (req, res) =>
     try
     {
       const warenkorb = req.body.Produkte;  //JSON Array aus dem Body herausholen
-      console.log("Anzahl der Produkte:", warenkorb.length);  //Anzahl der Produkte die in dem Warenkorb waren
-      let arr = reservierungDao.loadAll();
-      console.log(arr.length);
-      console.log(JSON.stringify(arr));
-      res.status(200).json(arr);
+      let reservierung_id = reservierungDao.createReservierung(warenkorb[0].mail);
 
-      res.status(201).send("Die Reservierung wurde erfolgreich entgegen genommen");
+      for (let i = 0; i < warenkorb.length; i++)
+      {
+        let status = reservierungDao.createAuftrag(reservierung_id, warenkorb[i].id, warenkorb[i].menge);
+        console.log(reservierung_id, warenkorb[i].id, warenkorb[i].menge);
+      }
     }
 
-    catch (error)
+    catch(ex)
     {
-      res.status(500).send("Warenkorb konnte nicht in die Datenbank gespeichert werden");
-      console.error(error);
+      console.log("Routing Auftäge: Reservation failed. Exception occured: " + ex.message);
+      res.status(400).json({"fehler": true, "nachricht": ex.message});
     }
     
-  });*/
+  });
 
 module.exports = router;
