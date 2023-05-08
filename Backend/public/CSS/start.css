@@ -17,3 +17,9 @@ main {
     display: flex;
     justify-content: space-around;
 }
+
+footer 
+{
+    position: absolute;
+    bottom: 0;
+}
