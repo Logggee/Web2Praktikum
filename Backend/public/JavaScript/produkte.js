@@ -29,7 +29,7 @@ function generateAccordion(data)
                                 '</h2>' +
                                 '<div id="flush-collapse" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">' +
                                     '<div class="akordionInhalt">' +
-                                        '<img class="bilderAkordion" src="../Bilder/apfel.jpg" alt="Ei">' +
+                                        '<img class="bilderAkordion" src="" alt="Ei" id="productPic">' +
                                         '<a id="info">Frische Äpfel von den eigenen Obstwiesen</a>' +
                                             '<div class="inputDiv">' +
                                                 'Verfügbare Menge:'+
@@ -58,6 +58,7 @@ function generateAccordion(data)
         document.getElementById("id").id = product.produkt_id;
         document.getElementById("flush-collapse").id = "flush-collapse" + product.produkt_id;
         document.getElementById(product.produkt_id).setAttribute("data-bs-target", ("#flush-collapse" + product.produkt_id));
+        document.getElementById("productPic").id = "productPic" + product.produkt_id;
         document.getElementById("info").id = "info" + product.produkt_id;
         document.getElementById("einheitBestand").id = "einheitBestand" + product.produkt_id;
         document.getElementById("einheitReservierung").id = "einheitReservierung" + product.produkt_id;
@@ -68,6 +69,8 @@ function generateAccordion(data)
 
         let element = document.getElementById(product.produkt_id);
         element.innerHTML = product.name;
+        element = document.getElementById("productPic" + product.produkt_id);
+        element.src = "../Bilder/" + product.bild;
         element = document.getElementById("info" + product.produkt_id);
         element.innerHTML = product.beschreibung;
         element = document.getElementById("bestandsmenge" + product.produkt_id);

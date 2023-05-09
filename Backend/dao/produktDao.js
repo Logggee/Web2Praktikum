@@ -25,7 +25,7 @@ class ProduktDao {
         return result;
     }*/
 
-    createProduct(name, beschreibung, einheit, lagermenge) {
+    createProduct(name, beschreibung, bild, einheit, lagermenge) {
         /*
     createProduct(name, beschreibung, bild, einheit, lagermenge) {
         let sql = 'INSERT INTO produkt (name, beschreibung, bild, fk_einheit, lagermenge) VALUES (?,?,?,?,?);';
@@ -47,9 +47,9 @@ class ProduktDao {
                 fkEinheit = 1;
               break;
           }
-        let sql = 'INSERT INTO produkt (name, beschreibung, fk_einheit, lagermenge) VALUES (?,?,?,?);';
+        let sql = 'INSERT INTO produkt (name, beschreibung, bild, fk_einheit, lagermenge) VALUES (?,?,?,?,?);';
         let statement = this.conn.prepare(sql);
-        let params = [name, beschreibung, fkEinheit, lagermenge];
+        let params = [name, beschreibung, bild, fkEinheit, lagermenge];
         statement.run(params);
 
         return 200;

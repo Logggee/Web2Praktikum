@@ -90,11 +90,13 @@ router.post("/produkte/hinzufuegen", (req, res) =>
       const text = req.body.text;
       const unit = req.body.unit;
       const quantity = req.body.quantity;
+      const picPath = req.body.picPath;
       console.log(name);
+      console.log(picPath);
       console.log(text);
       console.log(unit);
       console.log(quantity);
-      let status = prodDao.createProduct(name, text, unit, quantity);
+      let status = prodDao.createProduct(name,text, picPath, unit, quantity);
       res.status(status).send("Produkt wurde erfolgreich angelegt");
     }
 
