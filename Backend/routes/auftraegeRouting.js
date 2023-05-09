@@ -50,7 +50,7 @@ router.delete('/reservierungen/ablehnen/:id/:mail', (req,res) =>
     {
       const id = req.params.id;
       const mail = req.params.mail;
-      let status = reservierungDao.updateDeleteReservierung(id, mail);
+      let status = reservierungDao.updateDeleteReservierung(id);
       res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`); 
       //sendingMailCancel(id, mail); 
     }
