@@ -33,7 +33,7 @@ router.delete('/reservierungen/akzeptieren/:id/:mail', (req,res) =>
       console.log("Die Adresse lautet: " + mail)
       let status = reservierungDao.deleteReservierung(id);
       res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`);
-      sendingMailAccept(id, mail); 
+      //sendingMailAccept(id, mail); 
     }
 
     catch(ex)
@@ -52,7 +52,7 @@ router.delete('/reservierungen/ablehnen/:id/:mail', (req,res) =>
       const mail = req.params.mail;
       let status = reservierungDao.updateDeleteReservierung(id, mail);
       res.status(status).send(`Produkt mit ID ${id} wurde gelöscht`); 
-      sendingMailCancel(id, mail); 
+      //sendingMailCancel(id, mail); 
     }
 
     catch(ex)
@@ -87,7 +87,7 @@ router.post("/warenkorb", (req, res) =>
       res.status(400).json({"fehler": true, "nachricht": ex.message});
     }
   });
-
+/*
   async function sendingMailAccept(id, mail) {
     // Generate test SMTP service account from ethereal.email
   
@@ -133,5 +133,5 @@ router.post("/warenkorb", (req, res) =>
       html: "<h3>Ihre Reservierung bei <u><b>unser Hofladen</b></u> wurde leider abgelehnt!</h3>", // html body
     });
   }
-
+*/
 module.exports = router;
