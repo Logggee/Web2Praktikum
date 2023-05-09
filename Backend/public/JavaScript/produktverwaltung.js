@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", async() =>
                     document.getElementById("inputname").style.backgroundColor = "white";       //backgoundcolor zurücksetzen
                     document.getElementById("inputtext").style.backgroundColor = "white";       //backgoundcolor zurücksetzen
                     document.getElementById("inputquantity").style.backgroundColor = "white";   //backgoundcolor zurücksetzen
+                    document.getElementById("inputpic").style.backgroundColor = "white";
 
                     //Response in der Konsole ausgeben
                     const status = await response.status;
@@ -199,11 +200,26 @@ function generateAccordionOwner(data)
 function checkForm()
 {
     let formValid = true;
+    var regex = /^[a-zA-Z0-9]+\.(jpg|jpeg|png|gif)$/;
 
     if(document.getElementById("inputname").value == "")
     {
         window.alert("Bitte einen Namen für das Produkt vergeben");
         document.getElementById("inputname").style.backgroundColor = "red";
+        formValid = false;
+    }
+
+    if(document.getElementById("inputpic").value == "")
+    {
+        window.alert("Bitte ein Bilddateinamen Eingeben");
+        document.getElementById("inputpic").style.backgroundColor = "red";
+        formValid = false;
+    }
+
+    else if(!regex.test(document.getElementById("inputpic").value))
+    {
+        window.alert("Bitte ein Gültiges Bilddateiformat eingeben");
+        document.getElementById("inputpic").style.backgroundColor = "red";
         formValid = false;
     }
 
