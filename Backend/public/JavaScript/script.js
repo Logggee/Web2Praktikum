@@ -1,20 +1,21 @@
 function loggingin(){
     var meta_user="admin";
-    var meta_pw="admin";
+    //geheimespasswort01
+    var meta_pw="c9ac4148ff27d4a045d6d41de2af3fbe";
     var user=document.getElementById("inputuser").value;
-    var password=document.getElementById("inputpassword").value
+    var password=document.getElementById("inputpassword").value;
+    var weiterleitung="cHJvZHVrdHZlcndhbHR1bmcuaHRtbA==";    
+    
 
-    if(meta_user==user && meta_pw==password)
+    if(meta_user==user && meta_pw==md5(password))
     {
       //weiterleitung auf produktverwaltung.html
-      //window.alert(window.location.href);
-      //window.location.assign("produktverwaltung.html")
+      //codiert in Base64
+      window.location.href=atob(weiterleitung);
     }
 
     else
     {
-      //window.alert("Falsche Logindaten");
-      //window.location.replace("http://127.0.0.1:8000/html/produktverwaltung.html");
-      window.location.href = "http://127.0.0.1:8000/html/produktverwaltung.html";
+      window.alert("Falsche Logindaten");
     }
 }
