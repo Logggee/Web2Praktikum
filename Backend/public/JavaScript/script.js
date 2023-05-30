@@ -12,10 +12,19 @@ function loggingin(){
       //weiterleitung auf produktverwaltung.html
       //codiert in Base64
       window.location.href=atob(weiterleitung);
+      document.getElementById("inputuser").style.backgroundColor = "white";
+      document.getElementById("inputpassword").style.backgroundColor = "white";
+    }
+
+    else if(meta_user != user)
+    {
+      document.getElementById("inputuser").style.backgroundColor = "red";
+      window.alert("Falscher Benutzername");
     }
 
     else
     {
-      window.alert("Falsche Logindaten");
+      document.getElementById("inputpassword").style.backgroundColor = "red";
+      window.alert("Falsches Passwort");
     }
 }
