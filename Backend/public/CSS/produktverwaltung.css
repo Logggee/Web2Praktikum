@@ -1,6 +1,13 @@
-main {
+main 
+{
+    background: var(--background);
     color: var(--text1);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 50px;
+    min-height: 86vh;
 }
+
 #accordionFlushExample
 {
     border: 3px solid; 
@@ -79,4 +86,11 @@ main {
     position: relative;
     margin-left: auto;
 }
+
+footer 
+{
+    margin-top: -1.95%;
+    width: 100%;
+}
+
 
