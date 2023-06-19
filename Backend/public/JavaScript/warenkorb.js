@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () =>
     });
     
 
+    //Wenn Reservieren gedrückt wurde soll das Popup geschlossen werden
     document.getElementById("reservieren").addEventListener("click", function() 
     {
         // Das Modal-Element wird gesucht und die Methode modal('hide') wird ausgeführt, um es zu schließen
@@ -85,7 +86,7 @@ function addProduct(id, mengeId)
         Produkte.push(product); // Produkt zum Array hinzufügen
         console.log(Produkte); // Warenkorb im Console-Log anzeigen
 
-        for (var i = 0; i < Produkte.length; i++) {
+        for (var i = 0; i < Produkte.length; i++) {     //Falls Produkt bereits im local storage ist soll nur die Menge erhöht werden
             for (var j = i+1; j < Produkte.length; j++) {
                 if (Produkte[i].name === Produkte[j].name) {
                     Produkte[i].menge = parseInt(Produkte[i].menge) + parseInt(Produkte[j].menge);
@@ -135,10 +136,12 @@ function outputCart()
             listenElement.innerHTML = elementLi;
             produktListe.appendChild(listenElement);
 
+            //Anpassen der Id`s 
             document.getElementById('productName').id = "productName" + product.id;
             document.getElementById("productQuantity").id = "productQuantity" + product.id;
             document.getElementById("buttonDelete").id = "buttonDelete" + product.id;
 
+            //Mit Contend befüllen
             var element = document.getElementById("productName" + product.id);
             element.innerHTML = product.name;
             element = document.getElementById("productQuantity" + product.id);

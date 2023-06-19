@@ -14,9 +14,8 @@ try
 
     //create Server
     const HTTP_PORT = 8000;     //Constante Variable für Port auf dem der Serber horchen soll
-    const TOPLEVELPATH = '/api/v1'; //Toplevel Path 
-    var express = require('express');   //express einbinde
-    var path = require('path');    
+    const TOPLEVELPATH = '/api/v1'; //Toplevel Path
+    var express = require('express');   //express einbinde   
     var cookieParser = require('cookie-parser');
     var logger = require('morgan');
 

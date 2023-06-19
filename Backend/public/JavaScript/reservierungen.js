@@ -62,6 +62,7 @@ function generateAccordion(data)
 
         let list = document.getElementById("reservationList"  + reservation.reservierung_id);
 
+        //Liste der Bestellten Produkte innerhalb des Akkordions
         for (let j = 0; j < reservation.produkte.length; j++)
         {
             let listElement = document.createElement('li');

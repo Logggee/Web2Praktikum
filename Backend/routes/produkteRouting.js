@@ -22,25 +22,6 @@ router.get("/produkte/alle", (req, res) =>
     }
 });
 
-//Router um alle vorhanden Id`s zu bekommen
-router.get("/produkte/id/alle", (req,res) =>
-{
-  const prodDao = new ProduktDao(req.app.locals.dbConnection);
-    try
-    {
-      let arr = prodDao.loadAllId();
-      console.log(arr.length);
-      console.log(JSON.stringify(arr));
-      res.status(200).json(arr); 
-    }
-
-    catch(ex)
-    {
-      console.log("Routing Produkt: Error loading all records. Exception occured: " + ex.message);
-      res.status(400).json({"fehler": true, "nachricht": ex.message});
-    }
-});
-
 //Produkte bestandsmenge mit einer bestimmten id ändern
 router.patch('/produkte/aendern/:id', (req, res) => 
 {

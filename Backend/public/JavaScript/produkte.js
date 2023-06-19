@@ -48,13 +48,14 @@ function generateAccordion(data)
 
     let accordion = document.getElementById("main");
 
-    for (let i = 0; i < data.length; i++) 
+    for (let i = 0; i < data.length; i++) //Alle Produkte des JSON durchgehen
     {
         let product = data[i];
 		let accordionElement = document.createElement('div');
         accordionElement.innerHTML = elementAccordion;
         accordion.appendChild(accordionElement);
 
+        //Id`s des Akkordions mit der jeweiligen Produkt id versehen
         document.getElementById("id").id = product.produkt_id;
         document.getElementById("flush-collapse").id = "flush-collapse" + product.produkt_id;
         document.getElementById(product.produkt_id).setAttribute("data-bs-target", ("#flush-collapse" + product.produkt_id));
@@ -67,6 +68,7 @@ function generateAccordion(data)
         document.getElementById("button").id = "button" + product.produkt_id;
         document.getElementById("button" + product.produkt_id).setAttribute("onclick", ("addProduct('" + product.produkt_id +"', 'menge" + product.produkt_id + "')"));
 
+        //Befüllen der Akkordions mit Name, Beschreibung, Bild und Menge
         let element = document.getElementById(product.produkt_id);
         element.innerHTML = product.name;
         element = document.getElementById("productPic" + product.produkt_id);

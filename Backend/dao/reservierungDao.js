@@ -137,8 +137,6 @@ class ReservierungDao {
         }
         return result;
     }
-  
-
 
     toString() {
         console.log('ReservierungDao [_conn=' + this.conn + ']');

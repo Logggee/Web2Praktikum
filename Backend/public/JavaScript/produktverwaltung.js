@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async() =>
                 if(checkForm())
                 {
                     const productName = document.getElementById("inputname").value;                 //Produktnamen holen
-                    const picPath = document.getElementById("inputpic").value;
+                    const picPath = document.getElementById("inputpic").value;                      //Dateinamen des Bildes
                     const productText = document.getElementById("inputtext").value;                 //Beschreibungstext holen
                     const productQuantity = document.getElementById("inputquantity").value;         //Bestandsmenge holen
                     const selectedRadio = document.querySelector('input[name="btnradio"]:checked'); //Herausfinden welcher Radio gesetzt wurde

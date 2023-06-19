@@ -17,21 +17,8 @@ class ProduktDao {
         return result;
     }
 
-    /*findAllId() {
-        let sql = 'SELECT id FROM produkt;';
-        let statement = this.conn.prepare(sql);
-        let result = statement.all();
-
-        return result;
-    }*/
-
     createProduct(name, beschreibung, bild, einheit, lagermenge) {
-        /*
-    createProduct(name, beschreibung, bild, einheit, lagermenge) {
-        let sql = 'INSERT INTO produkt (name, beschreibung, bild, fk_einheit, lagermenge) VALUES (?,?,?,?,?);';
-        let statement = this.conn.prepare(sql);
-        let params = [name, beschreibung, bild, einheit, lagermenge];
-        */
+        
        let fkEinheit;
         switch (einheit) {
             case 'Kilo':
